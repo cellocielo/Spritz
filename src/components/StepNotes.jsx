@@ -45,11 +45,11 @@ export default function StepNotes({
     <div className="space-y-6 text-[#1c1917]">
       
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
+        <h2 className="text-2xl sm:text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
           Scent & Vibe Preferences
         </h2>
-        <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed font-medium">
-          How would you like to define your fragrance preference?
+        <p className="text-xs text-stone-600 max-w-sm mx-auto font-medium">
+          Choose a thematic vibe or rank your favorite notes.
         </p>
       </div>
 
@@ -64,7 +64,7 @@ export default function StepNotes({
           }`}
         >
           <MapPin className="w-3.5 h-3.5" />
-          <span>Option A: Pick a Vibe / Setting</span>
+          <span>Vibe & Setting</span>
         </button>
 
         <button
@@ -76,7 +76,7 @@ export default function StepNotes({
           }`}
         >
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Option B: Ranked Scent Notes</span>
+          <span>Ranked Notes</span>
         </button>
       </div>
 

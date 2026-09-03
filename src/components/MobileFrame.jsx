@@ -14,7 +14,7 @@ export default function MobileFrame({ isMobileFrame, children }) {
   return (
     <div className="min-h-screen bg-stone-900 py-6 px-2 flex items-center justify-center">
       {/* Smartphone Mockup Container */}
-      <div className="w-full max-w-[430px] h-[912px] bg-[#faf9f6] rounded-[50px] border-[10px] border-stone-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] overflow-hidden flex flex-col relative text-stone-900">
+      <div className="w-full max-w-[430px] h-[912px] bg-[#faf9f6] rounded-[50px] border-[10px] border-stone-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] overflow-hidden flex flex-col relative text-stone-900 [transform:translateZ(0)]">
         
         {/* iOS Dynamic Island / Notch */}
         <div className="w-full bg-stone-900 pt-3 pb-1 px-7 flex items-center justify-between shrink-0 z-50 border-b border-stone-800">

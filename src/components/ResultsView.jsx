@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import confetti from 'canvas-confetti';
 import { Sparkles, RefreshCw, Layers, Compass, Home, Heart, CheckCircle2, ArrowRight } from 'lucide-react';
 import FragranceCard from './FragranceCard';
 import ScentProfileVisualizer from './ScentProfileVisualizer';
@@ -22,19 +21,6 @@ export default function ResultsView({
   useEffect(() => {
     const results = generateRecommendations(preferences, 3, recommendationOffset);
     setRecommendations(results);
-
-    if (recommendationOffset === 0) {
-      try {
-        confetti({
-          particleCount: 40,
-          spread: 60,
-          origin: { y: 0.6 },
-          colors: ['#1c1917', '#78350f', '#d6cfc7']
-        });
-      } catch (err) {
-        // Fallback silently
-      }
-    }
   }, [preferences, recommendationOffset]);
 
   const handleSaveAllAndHome = () => {

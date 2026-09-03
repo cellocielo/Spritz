@@ -33,24 +33,12 @@ export default function StepCollection({ ownedFragrances, setOwnedFragrances, on
     <div className="space-y-6 text-stone-900">
       
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-serif text-stone-900 font-bold tracking-wide">
+        <h2 className="text-2xl sm:text-3xl font-serif text-stone-900 font-bold tracking-wide">
           Your Current Collection
         </h2>
-        <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed font-medium">
-          Tell us what fragrances you already own or wear. We'll analyze their note profiles to find complementary gaps or matching accords.
+        <p className="text-xs text-stone-600 max-w-sm mx-auto font-medium">
+          Select or search fragrances you already own so we can match your signature taste.
         </p>
-      </div>
-
-      <div className="rounded-3xl p-4 border border-stone-200 bg-white flex items-start gap-3 shadow-2xs">
-        <div className="p-2 rounded-2xl bg-[#faf9f6] border border-stone-200 text-stone-900 shrink-0 mt-0.5 shadow-2xs">
-          <Info className="w-4 h-4" />
-        </div>
-        <div className="text-xs text-stone-700 space-y-1 font-medium">
-          <p className="font-bold text-stone-900">Why we ask for this</p>
-          <p className="leading-relaxed text-stone-600">
-            If your shelf is filled with summer citruses, we might suggest a warm cozy gourmand for date nights—or find an elevated twist on notes you already adore.
-          </p>
-        </div>
       </div>
 
       <div className="relative">

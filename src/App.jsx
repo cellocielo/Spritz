@@ -7,7 +7,6 @@ import BrowseFeed from './components/BrowseFeed';
 import SocialProfileView from './components/SocialProfileView';
 import VisualScentMap from './components/VisualScentMap';
 import FriendsChatDrawer from './components/FriendsChatDrawer';
-import StepCollection from './components/StepCollection';
 import StepClimate from './components/StepClimate';
 import StepOccasion from './components/StepOccasion';
 import StepBudget from './components/StepBudget';
@@ -20,7 +19,7 @@ import WishlistDrawer from './components/WishlistDrawer';
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 6;
+  const totalSteps = 5;
 
   // View Navigation: 'collection', 'map', 'add', 'friends', 'quiz', 'results'
   const [viewMode, setViewMode] = useState('collection');
@@ -49,7 +48,6 @@ export default function App() {
   const [selectedLayeringFragrance, setSelectedLayeringFragrance] = useState(null);
 
   const stepTitles = [
-    'Current Collection',
     'Climate & Location',
     'Purpose & Occasion',
     'Budget Range',
@@ -66,6 +64,8 @@ export default function App() {
   const handlePrevStep = () => {
     if (currentStep > 1) {
       setCurrentStep(prev => prev - 1);
+    } else {
+      setViewMode('collection');
     }
   };
 
@@ -88,11 +88,29 @@ export default function App() {
   };
 
   const handleSubmitNewFragrance = (newFrag) => {
-    setCustomSubmissions(prev => [newFrag, ...prev]);
-    setOwnedFragrances(prev => [...prev, newFrag.name]);
+    if (!newFrag || !newFrag.name) return;
+    
+    // Duplicate prevention: check if fragrance name or ID already exists in custom submissions
+    setCustomSubmissions(prev => {
+      const alreadyInSubmissions = prev.some(
+        f => f.id === newFrag.id || f.name.toLowerCase() === newFrag.name.toLowerCase()
+      );
+      if (alreadyInSubmissions) return prev;
+      return [newFrag, ...prev];
+    });
+
+    // Duplicate prevention: check if fragrance name already exists in owned shelf
+    setOwnedFragrances(prev => {
+      const alreadyOwned = prev.some(
+        n => n.toLowerCase() === newFrag.name.toLowerCase() || (newFrag.id && n.toLowerCase() === newFrag.id.toLowerCase())
+      );
+      if (alreadyOwned) return prev;
+      return [...prev, newFrag.name];
+    });
   };
 
   const handleToggleWishlist = (fragrance) => {
+    if (!fragrance || !fragrance.id) return;
     const list = wishlist || [];
     if (list.some(w => w.id === fragrance.id)) {
       setWishlist(list.filter(w => w.id !== fragrance.id));
@@ -102,9 +120,11 @@ export default function App() {
   };
 
   const handleToggleOwned = (fragrance) => {
+    if (!fragrance || !fragrance.name) return;
     const name = fragrance.name;
-    if (ownedFragrances.some(n => n.toLowerCase() === name.toLowerCase())) {
-      setOwnedFragrances(ownedFragrances.filter(n => n.toLowerCase() !== name.toLowerCase()));
+    const id = fragrance.id;
+    if (ownedFragrances.some(n => n.toLowerCase() === name.toLowerCase() || (id && n.toLowerCase() === id.toLowerCase()))) {
+      setOwnedFragrances(ownedFragrances.filter(n => n.toLowerCase() !== name.toLowerCase() && (!id || n.toLowerCase() !== id.toLowerCase())));
     } else {
       setOwnedFragrances([...ownedFragrances, name]);
     }
@@ -193,14 +213,6 @@ export default function App() {
 
             <div className="mt-4 transition-all duration-300">
               {currentStep === 1 && (
-                <StepCollection
-                  ownedFragrances={ownedFragrances}
-                  setOwnedFragrances={setOwnedFragrances}
-                  onNext={handleNextStep}
-                />
-              )}
-
-              {currentStep === 2 && (
                 <StepClimate
                   climate={climate}
                   setClimate={setClimate}
@@ -209,7 +221,7 @@ export default function App() {
                 />
               )}
 
-              {currentStep === 3 && (
+              {currentStep === 2 && (
                 <StepOccasion
                   occasion={occasion}
                   setOccasion={setOccasion}
@@ -218,7 +230,7 @@ export default function App() {
                 />
               )}
 
-              {currentStep === 4 && (
+              {currentStep === 3 && (
                 <StepBudget
                   budget={budget}
                   setBudget={setBudget}
@@ -227,7 +239,7 @@ export default function App() {
                 />
               )}
 
-              {currentStep === 5 && (
+              {currentStep === 4 && (
                 <StepNotes
                   prefMode={prefMode}
                   setPrefMode={setPrefMode}
@@ -240,7 +252,7 @@ export default function App() {
                 />
               )}
 
-              {currentStep === 6 && (
+              {currentStep === 5 && (
                 <StepSillage
                   sillage={sillage}
                   setSillage={setSillage}

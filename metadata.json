@@ -1,0 +1,6 @@
+{
+  "name": "ScentMatch",
+  "description": "Haute Parfumerie recommendation engine, collector network, scent visualizer, and layering guide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,40 +1,40 @@
 import React, { useState, useMemo } from 'react';
-import { Compass, Grid, Map as MapIcon, ChevronRight, X, Sparkles, AlertCircle, TrendingUp, ShieldAlert, Award } from 'lucide-react';
+import { Compass, Grid, X, Search, RotateCcw, Check, Sparkles } from 'lucide-react';
 import { FRAGRANCE_DATABASE } from '../data/fragrances';
+import BottleVisualizer from './BottleVisualizer';
+import BottleClipart from './BottleClipart';
 
-// ----- 8-SECTOR RADAR FRAMEWORK (45° INTERVALS) -----
+// ----- 8-SECTOR RADAR FRAMEWORK (45° INTERVALS) MATCHING SCENT WHEEL STRUCTURE -----
 export const EIGHT_RADAR_CATEGORIES = [
-  { id: 'CitrusFresh', name: 'Citrus', fullName: 'Citrus / Fresh', icon: '🍋', angle: 0, color: '#0ea5e9', bg: 'bg-sky-500', lightBg: 'bg-sky-50 text-sky-900 border-sky-200' },
-  { id: 'AromaticGreen', name: 'Aromatic', fullName: 'Aromatic / Green', icon: '🌿', angle: 45, color: '#10b981', bg: 'bg-emerald-500', lightBg: 'bg-emerald-50 text-emerald-900 border-emerald-200' },
-  { id: 'Floral', name: 'Floral', fullName: 'Floral', icon: '🌹', angle: 90, color: '#ec4899', bg: 'bg-pink-500', lightBg: 'bg-pink-50 text-pink-900 border-pink-200' },
-  { id: 'Fruity', name: 'Fruity', fullName: 'Fruity', icon: '🍑', angle: 135, color: '#8b5cf6', bg: 'bg-purple-500', lightBg: 'bg-purple-50 text-purple-900 border-purple-200' },
-  { id: 'Spicy', name: 'Spicy', fullName: 'Spicy', icon: '🌶️', angle: 180, color: '#ef4444', bg: 'bg-red-500', lightBg: 'bg-red-50 text-red-900 border-red-200' },
-  { id: 'Gourmand', name: 'Gourmand', fullName: 'Gourmand', icon: '🍦', angle: 225, color: '#f59e0b', bg: 'bg-amber-500', lightBg: 'bg-amber-50 text-amber-900 border-amber-200' },
-  { id: 'AmberResinous', name: 'Amber', fullName: 'Amber / Resinous', icon: '🍯', angle: 270, color: '#d97706', bg: 'bg-amber-700', lightBg: 'bg-yellow-50 text-yellow-950 border-yellow-200' },
-  { id: 'Woody', name: 'Woody', fullName: 'Woody', icon: '🪵', angle: 315, color: '#78350f', bg: 'bg-stone-800', lightBg: 'bg-stone-100 text-stone-900 border-stone-300' }
+  { id: 'CitrusFresh', name: 'Citrus', fullName: 'Citrus', angle: -90, color: '#0ea5e9' },
+  { id: 'Woody', name: 'Woody', fullName: 'Woody', angle: -45, color: '#78350f' },
+  { id: 'AromaticGreen', name: 'Green', fullName: 'Green / Botanical', angle: 0, color: '#10b981' },
+  { id: 'Spicy', name: 'Spicy', fullName: 'Spicy', angle: 45, color: '#ef4444' },
+  { id: 'Floral', name: 'Floral', fullName: 'Floral', angle: 90, color: '#ec4899' },
+  { id: 'Gourmand', name: 'Sweet', fullName: 'Powdery / Sweet', angle: 135, color: '#f59e0b' },
+  { id: 'Fresh', name: 'Fresh', fullName: 'Fresh / Aquatic', angle: 180, color: '#06b6d4' },
+  { id: 'AmberResinous', name: 'Amber', fullName: 'Amber / Resinous', angle: 225, color: '#d97706' }
 ];
 
-// SEMANTIC NOTE DICTIONARY FOR INDUSTRY-STANDARD CLASSIFICATION
+// SEMANTIC NOTE DICTIONARY FOR PRECISE SCENT ATTRIBUTION
 const SEMANTIC_NOTE_DICT = {
   CitrusFresh: [
     'citrus', 'lemon', 'grapefruit', 'bergamot', 'mandarin', 'orange', 'yuzu', 'lime', 'neroli', 
-    'aquatic', 'marine', 'calone', 'sea', 'salt', 'ozonic', 'water', 'watery', 'aldehydes', 'aldehydic', 'clean'
+    'aldehydes', 'aldehydic', 'blood orange', 'clementine', 'citron'
+  ],
+  Fresh: [
+    'aquatic', 'marine', 'calone', 'sea', 'salt', 'ozonic', 'water', 'watery', 'clean', 'mineral', 'driftwood'
   ],
   AromaticGreen: [
     'green', 'mint', 'basil', 'sage', 'clary sage', 'lavender', 'rosemary', 'thyme', 'tea', 'black tea', 
     'matcha', 'grass', 'pine', 'pine needles', 'juniper', 'juniper berries', 'eucalyptus', 'fern', 
-    'fougere', 'petitgrain', 'herbal', 'chamomile', 'tagetes', 'absinthe'
+    'fougere', 'petitgrain', 'herbal', 'chamomile', 'blackcurrant leaf', 'fig leaf', 'green notes'
   ],
   Floral: [
     'floral', 'rose', 'damask rose', 'may rose', 'jasmine', 'moroccan jasmine', 'indian jasmine', 
     'white floral', 'iris', 'orris', 'lily', 'violet', 'violet accord', 'peony', 'tuberose', 'ylang', 
     'ylang-ylang', 'orchid', 'geranium', 'osmanthus', 'heliotrope', 'magnolia', 'freesia', 
-    'orange blossom', 'powdery', 'gardenia'
-  ],
-  Fruity: [
-    'fruity', 'apple', 'peach', 'plum', 'berry', 'berries', 'cherry', 'mango', 'pineapple', 
-    'coconut', 'melon', 'pear', 'fig', 'fig leaf', 'fig tree', 'blackcurrant', 'raspberry', 
-    'strawberry', 'lychee'
+    'orange blossom', 'powdery', 'gardenia', 'hedione'
   ],
   Spicy: [
     'spicy', 'warm spicy', 'soft spicy', 'fresh spicy', 'pepper', 'pink pepper', 'sichuan pepper', 
@@ -44,50 +44,41 @@ const SEMANTIC_NOTE_DICT = {
   Gourmand: [
     'gourmand', 'sweet', 'vanilla', 'vanille', 'vanilla bean', 'bourbon vanilla', 'caramel', 
     'chocolate', 'cacao', 'coffee', 'honey', 'almond', 'tonka', 'tonka bean', 'praline', 
-    'hazelnut', 'sugar', 'marshmallow', 'rum', 'rum absolute', 'cognac', 'boozy', 'chestnut'
+    'hazelnut', 'sugar', 'marshmallow', 'rum', 'rum absolute', 'cognac', 'boozy', 'chestnut', 'coconut'
   ],
   AmberResinous: [
     'amber', 'resin', 'resinous', 'frankincense', 'myrrh', 'benzoin', 'labdanum', 'opoponax', 
     'incense', 'balsam', 'peru balsam', 'fir resin', 'amberwood', 'ambergris', 'ambrox', 
-    'ambroxan', 'ambrette', 'ambrette seeds', 'musk', 'white musk', 'olibanum', 'copal', 'styrax'
+    'ambroxan', 'ambrette', 'musk', 'white musk', 'pink musk', 'olibanum', 'copal', 'styrax'
   ],
   Woody: [
     'woody', 'wood', 'woody notes', 'cedar', 'cedarwood', 'sandalwood', 'mysore sandalwood', 
-    'vetiver', 'haitian vetiver', 'java vetiver oil', 'patchouli', 'oud', 'rare oud wood', 
-    'agarwood', 'oakmoss', 'moss', 'leather', 'tobacco', 'tobacco leaf', 'smoke', 'smoky', 
-    'iso e super', 'cashmeran', 'gaïac wood', 'guaiac', 'birch', 'cypress', 'fig wood', 'rosewood', 'oak'
+    'white sandalwood', 'vetiver', 'haitian vetiver', 'java vetiver oil', 'patchouli', 'oud', 
+    'rare oud wood', 'agarwood', 'oakmoss', 'moss', 'leather', 'tobacco', 'tobacco leaf', 'smoke', 
+    'smoky', 'iso e super', 'cashmeran', 'gaïac wood', 'guaiac', 'birch', 'cypress', 'fig wood', 'rosewood', 'oak'
   ]
 };
 
-// DYNAMIC NOTE PYRAMID & CONCENTRATION WEIGHTING ENGINE
+// CALCULATE FRAGRANCE RADAR WEIGHTS ACROSS 8 AXES
 export function calculateFragranceAccordWeights(fragrance) {
   if (!fragrance) return {};
 
-  const nameLower = (fragrance.name || '').toLowerCase();
-  const families = fragrance.olfactoryFamilies || [];
-  
-  // Concentration Profiling
-  const isFreshOrEDT = 
-    nameLower.includes('edt') || 
-    nameLower.includes('cologne') || 
-    nameLower.includes("l'eau") ||
-    families.some(f => f.includes('fresh') || f.includes('citrus') || f.includes('clean'));
-
-  // Volatility factors: EDT/Fresh prioritizes Top/Heart (50/30/20); EDP/Parfum prioritizes Base (20/30/50)
-  const weightFactors = isFreshOrEDT 
-    ? { top: 0.5, heart: 0.3, base: 0.2 }
-    : { top: 0.2, heart: 0.3, base: 0.5 };
-
   const rawScores = {
     CitrusFresh: 0,
+    Woody: 0,
     AromaticGreen: 0,
-    Floral: 0,
-    Fruity: 0,
     Spicy: 0,
+    Floral: 0,
     Gourmand: 0,
-    AmberResinous: 0,
-    Woody: 0
+    Fresh: 0,
+    AmberResinous: 0
   };
+
+  const nameLower = (fragrance.name || '').toLowerCase();
+  const isFresh = nameLower.includes('edt') || nameLower.includes('cologne') || nameLower.includes("l'eau");
+  const weightFactors = isFresh 
+    ? { top: 0.5, heart: 0.3, base: 0.2 }
+    : { top: 0.2, heart: 0.3, base: 0.5 };
 
   const mapNoteToCategory = (note) => {
     if (!note || typeof note !== 'string') return null;
@@ -97,7 +88,6 @@ export function calculateFragranceAccordWeights(fragrance) {
         return cat.id;
       }
     }
-    // Strict omission: No default to Woody!
     return null;
   };
 
@@ -107,7 +97,7 @@ export function calculateFragranceAccordWeights(fragrance) {
     if (validCategories.length === 0) return;
     const scorePerNote = factor / validCategories.length;
     validCategories.forEach(catId => {
-      rawScores[catId] += scorePerNote;
+      rawScores[catId] = (rawScores[catId] || 0) + scorePerNote;
     });
   };
 
@@ -115,38 +105,44 @@ export function calculateFragranceAccordWeights(fragrance) {
   processTier(fragrance.notes?.heart, weightFactors.heart);
   processTier(fragrance.notes?.base, weightFactors.base);
 
-  const totalRaw = Object.values(rawScores).reduce((a, b) => a + b, 0);
+  if (Array.isArray(fragrance.mainAccords)) {
+    fragrance.mainAccords.forEach(acc => {
+      const accName = typeof acc === 'string' ? acc : acc?.name;
+      const cat = mapNoteToCategory(accName);
+      if (cat) {
+        rawScores[cat] = (rawScores[cat] || 0) + ((acc.score || 50) / 100) * 0.4;
+      }
+    });
+  }
 
-  // Fallback to accordWeights or mainAccords if notes array was sparse
-  if (totalRaw === 0) {
-    if (fragrance.accordWeights) {
-      return { ...fragrance.accordWeights };
-    }
-    if (Array.isArray(fragrance.mainAccords)) {
-      fragrance.mainAccords.forEach(acc => {
-        const cat = mapNoteToCategory(acc.name);
-        if (cat) rawScores[cat] += (acc.score || 50) / 100;
-      });
-    }
+  // Check fallback vector if empty
+  const totalRaw = Object.values(rawScores).reduce((a, b) => a + b, 0);
+  if (totalRaw === 0 && fragrance.accordVector) {
+    rawScores.Fresh = fragrance.accordVector.fresh || 0;
+    rawScores.Gourmand = fragrance.accordVector.gourmand || 0;
+    rawScores.Woody = fragrance.accordVector.woody || 0;
+    rawScores.Floral = fragrance.accordVector.floral || 0;
+    rawScores.AmberResinous = fragrance.accordVector.resin || 0;
   }
 
   const finalTotal = Object.values(rawScores).reduce((a, b) => a + b, 0);
   const normalized = {};
   EIGHT_RADAR_CATEGORIES.forEach(cat => {
-    normalized[cat.id] = finalTotal > 0 ? parseFloat((rawScores[cat.id] / finalTotal).toFixed(2)) : 0;
+    normalized[cat.id] = finalTotal > 0 ? parseFloat((rawScores[cat.id] / finalTotal).toFixed(2)) : 0.12;
   });
 
   return normalized;
 }
 
-// ----- MAIN COMPONENT -----
 export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetail }) {
-  const [viewMode, setViewMode] = useState('radial'); // default to radar
+  const [activeTab, setActiveTab] = useState('radar'); // 'radar' or 'grid'
+  const [selectedBottleId, setSelectedBottleId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategoryForModal, setSelectedCategoryForModal] = useState(null);
-  const [hoveredNode, setHoveredNode] = useState(null);
+  const [activeCategoryHighlight, setActiveCategoryHighlight] = useState(null);
 
-  // Resolve user owned fragrances
-  const ownedObjects = useMemo(() => {
+  // User owned items resolved
+  const userOwnedList = useMemo(() => {
     return FRAGRANCE_DATABASE.filter(f => 
       ownedFragranceNames.some(name => 
         name.toLowerCase() === f.name.toLowerCase() || 
@@ -155,500 +151,640 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
     );
   }, [ownedFragranceNames]);
 
-  // Use owned shelf or a representative sample if shelf is empty
-  const activeShelf = ownedObjects.length > 0 ? ownedObjects : FRAGRANCE_DATABASE.slice(0, 6);
-
-  // Precompute individual fragrance accord weights
-  const shelfWithWeights = useMemo(() => {
-    return activeShelf.map(bottle => ({
-      ...bottle,
-      computedWeights: calculateFragranceAccordWeights(bottle)
-    }));
-  }, [activeShelf]);
-
-  // SVG Radar Dimensions
-  const SVG_SIZE = 380;
-  const CENTER = SVG_SIZE / 2;
-  const R_MAX = 135;
-
-  // AGGREGATE COLLECTION FOOTPRINT MATH (8 AXES)
-  const collectionAnalysis = useMemo(() => {
-    const rawSums = {};
-    const contributingMap = {};
-
-    EIGHT_RADAR_CATEGORIES.forEach(cat => {
-      rawSums[cat.id] = 0;
-      contributingMap[cat.id] = [];
+  // Combined full display shelf for selector (ensures at least 9 popular bottles are browseable)
+  const displayShelf = useMemo(() => {
+    const combined = [...userOwnedList];
+    FRAGRANCE_DATABASE.forEach(f => {
+      if (!combined.some(existing => existing.id === f.id)) {
+        combined.push(f);
+      }
     });
+    return combined;
+  }, [userOwnedList]);
 
-    shelfWithWeights.forEach(bottle => {
-      const weights = bottle.computedWeights;
-      EIGHT_RADAR_CATEGORIES.forEach(cat => {
-        const w = weights[cat.id] || 0;
-        if (w > 0) {
-          rawSums[cat.id] += w;
-          contributingMap[cat.id].push({
-            bottle,
-            weight: w
-          });
-        }
+  // Filtered bottle list based on search query
+  const filteredBottles = useMemo(() => {
+    if (!searchQuery.trim()) return displayShelf;
+    const q = searchQuery.toLowerCase().trim();
+    return displayShelf.filter(b => 
+      b.name.toLowerCase().includes(q) || 
+      b.brand.toLowerCase().includes(q)
+    );
+  }, [displayShelf, searchQuery]);
+
+  // Active collection for baseline footprint
+  const baselineCollection = userOwnedList.length > 0 ? userOwnedList : displayShelf.slice(0, 9);
+
+  // Radar Constants
+  const SVG_SIZE = 340;
+  const CENTER = SVG_SIZE / 2;
+  const R_MAX = 110;
+  const CONCENTRIC_LEVELS = [0.2, 0.4, 0.6, 0.8, 1.0];
+
+  // Concentric Octagonal Grid Points
+  const concentricOctagons = useMemo(() => {
+    return CONCENTRIC_LEVELS.map(level => {
+      const radius = R_MAX * level;
+      const points = EIGHT_RADAR_CATEGORIES.map(cat => {
+        const rad = (cat.angle * Math.PI) / 180;
+        const x = CENTER + radius * Math.cos(rad);
+        const y = CENTER + radius * Math.sin(rad);
+        return `${x},${y}`;
+      }).join(' ');
+      return { level, points };
+    });
+  }, [CENTER, R_MAX]);
+
+  // Aggregate Collection Footprint Math (Global Footprint)
+  const aggregateFootprint = useMemo(() => {
+    const sums = {};
+    EIGHT_RADAR_CATEGORIES.forEach(c => { sums[c.id] = 0; });
+
+    baselineCollection.forEach(bottle => {
+      const weights = calculateFragranceAccordWeights(bottle);
+      EIGHT_RADAR_CATEGORIES.forEach(c => {
+        sums[c.id] += (weights[c.id] || 0.05);
       });
     });
 
-    const N = Math.max(1, shelfWithWeights.length);
+    const N = Math.max(1, baselineCollection.length);
     const avgScores = {};
     let maxAvg = 0;
-
-    EIGHT_RADAR_CATEGORIES.forEach(cat => {
-      const avg = rawSums[cat.id] / N;
-      avgScores[cat.id] = avg;
-      if (avg > maxAvg) maxAvg = avg;
+    EIGHT_RADAR_CATEGORIES.forEach(c => {
+      const val = sums[c.id] / N;
+      avgScores[c.id] = val;
+      if (val > maxAvg) maxAvg = val;
     });
 
-    // Normalize polygon vertices to 0.0 - 1.0 (with nice baseline radius)
     const vertices = EIGHT_RADAR_CATEGORIES.map(cat => {
-      const rawAvg = avgScores[cat.id];
-      // Normalized relative weight for radar shape
-      const relativeWeight = maxAvg > 0 ? (rawAvg / maxAvg) : 0.15;
-      // Clamp between 0.12 (visual minimum) and 0.96 (outer edge)
-      const footprintIntensity = Math.min(0.96, Math.max(0.12, relativeWeight * 0.95));
-
-      const angleRad = (cat.angle * Math.PI) / 180;
-      const r = R_MAX * footprintIntensity;
-      const x = CENTER + r * Math.cos(angleRad);
-      const y = CENTER + r * Math.sin(angleRad);
-
-      const isGap = relativeWeight < 0.28 || rawAvg < 0.05;
-
+      const score = avgScores[cat.id];
+      const intensity = maxAvg > 0 ? Math.min(0.95, Math.max(0.18, (score / maxAvg) * 0.9)) : 0.4;
+      const rad = (cat.angle * Math.PI) / 180;
+      const r = R_MAX * intensity;
       return {
         cat,
-        rawAvg,
-        relativeWeight,
-        footprintIntensity,
+        score,
         r,
-        x,
-        y,
-        isGap,
-        contributingBottles: contributingMap[cat.id].sort((a, b) => b.weight - a.weight)
+        x: CENTER + r * Math.cos(rad),
+        y: CENTER + r * Math.sin(rad)
       };
     });
 
-    // Build SVG Polygon points string
-    const polygonPoints = vertices.map(v => `${v.x},${v.y}`).join(' ');
+    return {
+      pointsString: vertices.map(v => `${v.x},${v.y}`).join(' '),
+      vertices
+    };
+  }, [baselineCollection, CENTER, R_MAX]);
 
-    // Sort categories by strength
-    const sortedByStrength = [...vertices].sort((a, b) => b.rawAvg - a.rawAvg);
-    const dominantCategories = sortedByStrength.filter(v => !v.isGap).slice(0, 3);
-    const gapCategories = vertices.filter(v => v.isGap);
+  // Selected Overlay Bottle Math
+  const overlayBottleData = useMemo(() => {
+    if (!selectedBottleId) return null;
+    const bottle = displayShelf.find(b => b.id === selectedBottleId);
+    if (!bottle) return null;
+
+    const weights = calculateFragranceAccordWeights(bottle);
+    const scores = EIGHT_RADAR_CATEGORIES.map(c => weights[c.id] || 0);
+    const maxScore = Math.max(...scores, 0.01);
+
+    const vertices = EIGHT_RADAR_CATEGORIES.map(cat => {
+      const score = weights[cat.id] || 0;
+      const intensity = Math.min(0.95, Math.max(0.15, (score / maxScore) * 0.95));
+      const rad = (cat.angle * Math.PI) / 180;
+      const r = R_MAX * intensity;
+      const percent = Math.round((weights[cat.id] || 0) * 100);
+      return {
+        cat,
+        score,
+        percent,
+        r,
+        x: CENTER + r * Math.cos(rad),
+        y: CENTER + r * Math.sin(rad)
+      };
+    });
+
+    // Accord breakdown sorted by strength
+    const sortedAccords = [...vertices]
+      .filter(v => v.percent > 0)
+      .sort((a, b) => b.percent - a.percent);
+
+    // Primary accent color (defaults to emerald #10B981 or warm amber #F59E0B or bottle accent)
+    const accentColor = bottle.accentColor || (bottle.category === 'Luxury' ? '#F59E0B' : '#10B981');
 
     return {
+      bottle,
+      accentColor,
+      pointsString: vertices.map(v => `${v.x},${v.y}`).join(' '),
       vertices,
-      polygonPoints,
-      dominantCategories,
-      gapCategories,
-      totalBottles: shelfWithWeights.length
+      sortedAccords
     };
-  }, [shelfWithWeights, CENTER, R_MAX]);
+  }, [selectedBottleId, displayShelf, CENTER, R_MAX]);
 
-  // Render Grid View
-  const renderGridView = () => {
-    return (
-      <div className="grid grid-cols-2 gap-3">
-        {EIGHT_RADAR_CATEGORIES.map(cat => {
-          const vertex = collectionAnalysis.vertices.find(v => v.cat.id === cat.id);
-          const bottlesInCat = vertex ? vertex.contributingBottles.map(c => c.bottle) : [];
-
-          return (
-            <div key={cat.id} className="bg-white rounded-3xl p-4 border border-stone-200 shadow-2xs flex flex-col h-48">
-              <div 
-                className="flex items-center justify-between border-b border-stone-100 pb-2 cursor-pointer hover:bg-stone-50 rounded-xl transition-colors -mx-2 px-2"
-                onClick={() => setSelectedCategoryForModal({ cat, bottles: bottlesInCat })}
-              >
-                <div className="flex items-center gap-1.5">
-                  <span className="text-lg">{cat.icon}</span>
-                  <h3 className="font-serif font-bold text-xs text-stone-900">{cat.name}</h3>
-                </div>
-                <div className="flex items-center gap-1">
-                  {vertex?.isGap && (
-                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-                      Gap
-                    </span>
-                  )}
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#faf9f6] border border-stone-200 text-stone-600">
-                    {bottlesInCat.length}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex-1 overflow-y-auto mt-2 space-y-2 pr-1 scrollbar-hide">
-                {bottlesInCat.length > 0 ? (
-                  bottlesInCat.map(bottle => (
-                    <div 
-                      key={bottle.id} 
-                      onClick={() => onSelectDetail(bottle)}
-                      className="p-2.5 rounded-2xl bg-[#faf9f6] border border-stone-200 flex flex-col hover:border-stone-400 transition-all cursor-pointer min-w-0"
-                    >
-                      <h4 className="font-serif font-bold text-[11px] text-stone-900 truncate">{bottle.name}</h4>
-                      <p className="text-[9px] text-stone-500 uppercase truncate">{bottle.brand}</p>
-                    </div>
-                  ))
-                ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-center py-2">
-                    <p className="text-[11px] text-stone-400 font-medium italic">No shelf bottles</p>
-                    <span className="text-[9px] text-amber-600 font-bold mt-0.5">Unexplored Territory</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  // Render Aggregated Radar Footprint Map
-  const renderRadarView = () => {
-    return (
-      <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex flex-col items-center justify-center relative overflow-hidden">
-        
-        {/* Radar Map Title Header */}
-        <div className="w-full text-center pb-2 border-b border-stone-100 mb-2">
-          <p className="text-xs font-serif font-bold text-stone-900">
-            Collection Scent Profile: An aggregated multi-accord footprint (8 axes)
-          </p>
-        </div>
-
-        {/* SVG Visualization */}
-        <div className="relative flex items-center justify-center my-2">
-          <svg width={SVG_SIZE} height={SVG_SIZE} className="overflow-visible select-none">
-            <defs>
-              {/* Radial Footprint Gradient */}
-              <radialGradient id="footprintGradient" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.45" />
-                <stop offset="65%" stopColor="#d97706" stopOpacity="0.30" />
-                <stop offset="100%" stopColor="#b45309" stopOpacity="0.18" />
-              </radialGradient>
-              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-
-            {/* Concentric Reference Rings (25%, 50%, 75%, 100%) */}
-            {[0.25, 0.5, 0.75, 1.0].map((ratio, idx) => (
-              <circle
-                key={idx}
-                cx={CENTER}
-                cy={CENTER}
-                r={R_MAX * ratio}
-                fill="none"
-                stroke="#e7e5e4"
-                strokeWidth="1"
-                strokeDasharray={ratio === 1.0 ? 'none' : '3 3'}
-              />
-            ))}
-
-            {/* 8 Radial Category Axis Lines & Sector Indicators */}
-            {collectionAnalysis.vertices.map(({ cat, isGap }) => {
-              const angleRad = (cat.angle * Math.PI) / 180;
-              const x2 = CENTER + R_MAX * Math.cos(angleRad);
-              const y2 = CENTER + R_MAX * Math.sin(angleRad);
-
-              // Outer Label Placement
-              const labelDistance = R_MAX + 24;
-              const labelX = CENTER + labelDistance * Math.cos(angleRad);
-              const labelY = CENTER + labelDistance * Math.sin(angleRad);
-
-              return (
-                <g key={cat.id}>
-                  {/* Axis Line */}
-                  <line
-                    x1={CENTER}
-                    y1={CENTER}
-                    x2={x2}
-                    y2={y2}
-                    stroke={isGap ? '#fca5a5' : '#e7e5e4'}
-                    strokeWidth={isGap ? '1.5' : '1.2'}
-                    strokeDasharray={isGap ? '2 2' : 'none'}
-                  />
-
-                  {/* Axis Label */}
-                  <text
-                    x={labelX}
-                    y={labelY}
-                    textAnchor="middle"
-                    alignmentBaseline="middle"
-                    fontSize="10"
-                    fontWeight="bold"
-                    fill={isGap ? '#9ca3af' : '#292524'}
-                    className="font-serif transition-colors"
-                  >
-                    {cat.name}
-                  </text>
-                </g>
-              );
-            })}
-
-            {/* COLLECTION FOOTPRINT: Filled Semi-Transparent SVG Polygon */}
-            <polygon
-              points={collectionAnalysis.polygonPoints}
-              fill="url(#footprintGradient)"
-              stroke="#d97706"
-              strokeWidth="2.2"
-              strokeLinejoin="round"
-              className="transition-all duration-500 hover:opacity-90"
-            />
-
-            {/* Gap Highlight Arcs / Badges */}
-            {collectionAnalysis.vertices.map(({ cat, isGap, x, y }) => {
-              if (!isGap) return null;
-              const angleRad = (cat.angle * Math.PI) / 180;
-              const gapRingR = R_MAX * 0.28;
-              const gapX = CENTER + gapRingR * Math.cos(angleRad);
-              const gapY = CENTER + gapRingR * Math.sin(angleRad);
-
-              return (
-                <g key={`gap-${cat.id}`} className="animate-pulse">
-                  <circle
-                    cx={gapX}
-                    cy={gapY}
-                    r={7}
-                    fill="#fef2f2"
-                    stroke="#ef4444"
-                    strokeWidth="1.2"
-                    strokeDasharray="2 2"
-                  />
-                  <circle
-                    cx={gapX}
-                    cy={gapY}
-                    r={2.5}
-                    fill="#ef4444"
-                  />
-                </g>
-              );
-            })}
-
-            {/* INDIVIDUAL BOTTLE NODES ALONG AXIS LINES */}
-            {collectionAnalysis.vertices.map(vertex => {
-              const { cat, contributingBottles } = vertex;
-              const angleRad = (cat.angle * Math.PI) / 180;
-
-              return (
-                <g key={`bottles-${cat.id}`}>
-                  {contributingBottles.map(({ bottle, weight }, bIdx) => {
-                    // Position along axis based on bottle's relative accord weight
-                    // Slightly offset radius if multiple bottles to prevent exact stacking
-                    const jitter = (bIdx % 3 - 1) * 4;
-                    const rBottle = Math.min(R_MAX, Math.max(22, (R_MAX * weight) + jitter));
-                    const bx = CENTER + rBottle * Math.cos(angleRad);
-                    const by = CENTER + rBottle * Math.sin(angleRad);
-
-                    const isHovered = hoveredNode?.bottle?.id === bottle.id && hoveredNode?.catId === cat.id;
-
-                    return (
-                      <g
-                        key={`${bottle.id}-${cat.id}`}
-                        className="cursor-pointer transition-transform duration-200"
-                        style={{
-                          transformOrigin: `${bx}px ${by}px`,
-                          transform: isHovered ? 'scale(1.4)' : 'scale(1)'
-                        }}
-                        onMouseEnter={() => setHoveredNode({ bottle, cat, weight, x: bx, y: by })}
-                        onMouseLeave={() => setHoveredNode(null)}
-                        onClick={() => onSelectDetail(bottle)}
-                      >
-                        {/* Outer Glow on hover */}
-                        {isHovered && (
-                          <circle cx={bx} cy={by} r={9} fill={cat.color} opacity={0.3} />
-                        )}
-                        {/* Bottle Marker Dot */}
-                        <circle
-                          cx={bx}
-                          cy={by}
-                          r={5}
-                          fill={bottle.accentColor || cat.color}
-                          stroke="#ffffff"
-                          strokeWidth="1.8"
-                          className="shadow-sm"
-                        />
-                      </g>
-                    );
-                  })}
-                </g>
-              );
-            })}
-
-            {/* Polygon Vertex Points */}
-            {collectionAnalysis.vertices.map(({ cat, x, y, isGap, rawAvg }) => (
-              <circle
-                key={`vertex-${cat.id}`}
-                cx={x}
-                cy={y}
-                r={4}
-                fill={isGap ? '#ef4444' : '#d97706'}
-                stroke="#ffffff"
-                strokeWidth="1.5"
-              />
-            ))}
-
-            {/* Center Anchor Point */}
-            <circle cx={CENTER} cy={CENTER} r={5} fill="#faf9f6" stroke="#a8a29e" strokeWidth="1.5" />
-          </svg>
-
-          {/* Interactive Hover Tooltip */}
-          {hoveredNode && (
-            <div
-              className="absolute z-20 pointer-events-none bg-stone-900/90 backdrop-blur-md text-white rounded-2xl shadow-xl p-3 min-w-[160px] border border-stone-700 animate-fadeIn"
-              style={{
-                left: Math.max(10, Math.min(hoveredNode.x - 80, SVG_SIZE - 170)),
-                top: Math.max(10, Math.min(hoveredNode.y + 15, SVG_SIZE - 90))
-              }}
-            >
-              <h4 className="font-serif font-bold text-xs text-white leading-tight">{hoveredNode.bottle.name}</h4>
-              <p className="text-[9px] text-stone-400 uppercase tracking-wider">{hoveredNode.bottle.brand}</p>
-              <div className="mt-2 flex items-center justify-between bg-stone-800 rounded-lg px-2 py-1 border border-stone-700">
-                <span className="text-[10px] font-medium text-amber-400">{hoveredNode.cat.fullName}</span>
-                <span className="text-[10px] font-bold text-white">{Math.round(hoveredNode.weight * 100)}%</span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Dynamic Shelf Balance Insights */}
-        <div className="w-full mt-4 space-y-3 pt-3 border-t border-stone-100 text-stone-800">
-          
-          {/* Collection Strengths */}
-          <div className="bg-amber-50/80 rounded-2xl p-3.5 border border-amber-200/80 flex items-start gap-3">
-            <div className="p-2 rounded-xl bg-amber-500 text-white shrink-0 mt-0.5 shadow-2xs">
-              <TrendingUp className="w-4 h-4" />
-            </div>
-            <div>
-              <h4 className="font-serif font-bold text-xs text-amber-950">Collection Strengths</h4>
-              <p className="text-[11px] text-amber-900/90 leading-relaxed mt-0.5">
-                Your collection is heavily weighted toward{' '}
-                <span className="font-bold">
-                  {collectionAnalysis.dominantCategories.map(d => d.cat.name).join(', ')}
-                </span>{' '}
-                profiles.
-              </p>
-            </div>
-          </div>
-
-          {/* Missing Profiles / Collection Gaps */}
-          {collectionAnalysis.gapCategories.length > 0 && (
-            <div className="bg-rose-50/80 rounded-2xl p-3.5 border border-rose-200/80 flex items-start gap-3">
-              <div className="p-2 rounded-xl bg-rose-500 text-white shrink-0 mt-0.5 shadow-2xs">
-                <ShieldAlert className="w-4 h-4" />
-              </div>
-              <div>
-                <h4 className="font-serif font-bold text-xs text-rose-950">Collection Gaps</h4>
-                <p className="text-[11px] text-rose-900/90 leading-relaxed mt-0.5">
-                  Consider adding{' '}
-                  <span className="font-bold">
-                    {collectionAnalysis.gapCategories.map(g => g.cat.name).join(', ')}
-                  </span>{' '}
-                  scents to balance your shelf.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Quick 8-Accord Intensity Pill Breakdown */}
-          <div className="pt-1">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-stone-500 mb-2">Accord Coverage</p>
-            <div className="grid grid-cols-4 gap-1.5">
-              {collectionAnalysis.vertices.map(({ cat, relativeWeight, isGap }) => (
-                <div
-                  key={cat.id}
-                  className={`p-2 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
-                    isGap ? 'bg-stone-50 border-stone-200 text-stone-400' : 'bg-[#faf9f6] border-stone-200 text-stone-900'
-                  }`}
-                >
-                  <span className="text-sm">{cat.icon}</span>
-                  <span className="text-[9px] font-bold mt-0.5 truncate w-full">{cat.name}</span>
-                  <span className="text-[9px] font-semibold text-amber-700">
-                    {Math.round(relativeWeight * 100)}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    );
+  const handleToggleSelectBottle = (bottleId) => {
+    if (selectedBottleId === bottleId) {
+      setSelectedBottleId(null);
+      setActiveCategoryHighlight(null);
+    } else {
+      setSelectedBottleId(bottleId);
+      setActiveCategoryHighlight(null);
+    }
   };
 
   return (
-    <div className="space-y-4 animate-fadeIn py-2 text-stone-900">
+    <div className="w-full space-y-3 sm:space-y-4 text-stone-900 animate-fadeIn select-none pb-8">
       
-      {/* Header & Mode Switcher */}
-      <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-xs flex items-center justify-between">
-        <h2 className="text-xl font-serif font-bold text-stone-900 flex items-center gap-2">
-          <Compass className="w-5 h-5 text-amber-600" />
-          <span>My Scent Map</span>
-        </h2>
+      {/* Top Header: "My Shelf" */}
+      <div className="space-y-2">
+        <h1 className="text-3xl font-serif font-bold text-stone-900 tracking-tight">
+          My Shelf
+        </h1>
 
-        <div className="flex bg-[#faf9f6] p-1 rounded-2xl border border-stone-200">
+        {/* Tab Navigation with active underline indicator */}
+        <div className="flex border-b border-stone-200">
           <button
-            onClick={() => setViewMode('radial')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              viewMode === 'radial' ? 'bg-white shadow-xs text-stone-900' : 'text-stone-500 hover:text-stone-700'
+            onClick={() => setActiveTab('radar')}
+            className={`pb-2 px-1 font-semibold text-sm transition-all relative flex items-center gap-2 ${
+              activeTab === 'radar' 
+                ? 'text-stone-900 border-b-2 border-stone-900 font-bold -mb-[2px]' 
+                : 'text-stone-400 hover:text-stone-600'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Radar Web</span>
+            <Compass className="w-4 h-4" />
+            <span>Radar Map</span>
           </button>
+
           <button
-            onClick={() => setViewMode('grid')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              viewMode === 'grid' ? 'bg-white shadow-xs text-stone-900' : 'text-stone-500 hover:text-stone-700'
+            onClick={() => setActiveTab('grid')}
+            className={`ml-6 pb-2 px-1 font-semibold text-sm transition-all relative flex items-center gap-2 ${
+              activeTab === 'grid' 
+                ? 'text-stone-900 border-b-2 border-stone-900 font-bold -mb-[2px]' 
+                : 'text-stone-400 hover:text-stone-600'
             }`}
           >
-            <Grid className="w-3.5 h-3.5" />
-            <span>Grid</span>
+            <Grid className="w-4 h-4" />
+            <span>Collection Grid</span>
           </button>
         </div>
       </div>
 
-      {/* Mode View */}
-      {viewMode === 'radial' ? renderRadarView() : renderGridView()}
+      {activeTab === 'radar' ? (
+        <div className="space-y-4">
+          
+          {/* 1. DUAL-POLYGON RADAR MAP SECTION (Centered with Octagonal Mesh) */}
+          <div className="flex flex-col items-center justify-center relative pt-1 pb-2">
+            
+            {/* Status & Quick Action Bar (only renders when bottle is selected to minimize empty gap) */}
+            {selectedBottleId && (
+              <div className="w-full flex items-center justify-between px-2 mb-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-800 border border-stone-200 flex items-center gap-1.5 shadow-2xs">
+                    <span 
+                      className="w-2 h-2 rounded-full" 
+                      style={{ backgroundColor: overlayBottleData?.accentColor || '#10b981' }}
+                    ></span>
+                    Overlaying: <span className="font-bold">{overlayBottleData?.bottle.name}</span>
+                  </span>
+                  <span className="text-[11px] text-stone-400 hidden sm:inline">
+                    (Shelf Footprint dimmed in background)
+                  </span>
+                </div>
 
-      {/* FULL CATEGORY LIST MODAL (GRID MODE) */}
-      {selectedCategoryForModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fadeIn">
-          <div className="w-full max-w-sm bg-white rounded-3xl p-5 border border-stone-200 shadow-2xl space-y-4 flex flex-col max-h-[80vh]">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">{selectedCategoryForModal.cat.icon}</span>
-                <h3 className="font-serif font-bold text-lg text-stone-900">{selectedCategoryForModal.cat.fullName || selectedCategoryForModal.cat.name}</h3>
+                <button
+                  onClick={() => {
+                    setSelectedBottleId(null);
+                    setActiveCategoryHighlight(null);
+                  }}
+                  className="text-xs font-bold text-stone-500 hover:text-stone-900 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-stone-100 transition-all"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Reset View</span>
+                </button>
               </div>
+            )}
+
+            {/* SVG Radar Canvas */}
+            <div className="relative flex items-center justify-center mt-1 mb-2">
+              <svg width={SVG_SIZE} height={SVG_SIZE} viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`} className="overflow-visible select-none">
+                <defs>
+                  {/* Dynamic Gradient for Selected Highlight Polygon */}
+                  <linearGradient id="selectedPolygonGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor={overlayBottleData?.accentColor || '#10b981'} stopOpacity="0.70" />
+                    <stop offset="100%" stopColor={overlayBottleData?.accentColor || '#059669'} stopOpacity="0.45" />
+                  </linearGradient>
+
+                  {/* Neutral Slate/Indigo Gradient for Global Shelf Footprint */}
+                  <linearGradient id="globalFootprintGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#4f46e5" />
+                    <stop offset="100%" stopColor="#6366f1" />
+                  </linearGradient>
+
+                  {/* Shadow filter for active node dots */}
+                  <filter id="dotGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="1" stdDeviation="2" floodColor="#000000" floodOpacity="0.25" />
+                  </filter>
+                </defs>
+
+                {/* Concentric Octagonal Grid Lines */}
+                {concentricOctagons.map((oct, idx) => (
+                  <polygon
+                    key={`oct-${idx}`}
+                    points={oct.points}
+                    fill="none"
+                    stroke="#e7e5e4"
+                    strokeWidth={oct.level === 1.0 ? "1.2" : "0.75"}
+                  />
+                ))}
+
+                {/* 8 Radial Axis Lines & Labels */}
+                {EIGHT_RADAR_CATEGORIES.map(cat => {
+                  const rad = (cat.angle * Math.PI) / 180;
+                  const x2 = CENTER + R_MAX * Math.cos(rad);
+                  const y2 = CENTER + R_MAX * Math.sin(rad);
+
+                  // Outer Label Position
+                  const labelRadius = R_MAX + 24;
+                  const labelX = CENTER + labelRadius * Math.cos(rad);
+                  const labelY = CENTER + labelRadius * Math.sin(rad);
+
+                  const isCatHighlighted = activeCategoryHighlight === cat.id;
+
+                  return (
+                    <g 
+                      key={cat.id}
+                      className="cursor-pointer group"
+                      onClick={() => setActiveCategoryHighlight(activeCategoryHighlight === cat.id ? null : cat.id)}
+                    >
+                      <line
+                        x1={CENTER}
+                        y1={CENTER}
+                        x2={x2}
+                        y2={y2}
+                        stroke={isCatHighlighted ? (overlayBottleData?.accentColor || "#10b981") : "#e7e5e4"}
+                        strokeWidth={isCatHighlighted ? "1.8" : "1"}
+                        className="transition-colors duration-200"
+                      />
+                      <text
+                        x={labelX}
+                        y={labelY}
+                        textAnchor="middle"
+                        alignmentBaseline="middle"
+                        fontSize={isCatHighlighted ? "12" : "11"}
+                        fontWeight={isCatHighlighted ? "800" : "600"}
+                        fill={isCatHighlighted ? (overlayBottleData?.accentColor || "#0f172a") : "#44403c"}
+                        className="font-sans select-none tracking-wide transition-all duration-200"
+                      >
+                        {cat.name}
+                      </text>
+                    </g>
+                  );
+                })}
+
+                {/* 1. PRIMARY GLOBAL FOOTPRINT POLYGON */}
+                {/* Default: Slate/Indigo #4F46E5 at 40% opacity | When Selected: Dimmed to faint 15% opacity */}
+                <polygon
+                  points={aggregateFootprint.pointsString}
+                  fill="url(#globalFootprintGrad)"
+                  fillOpacity={selectedBottleId ? 0.15 : 0.40}
+                  stroke="#4f46e5"
+                  strokeOpacity={selectedBottleId ? 0.25 : 0.85}
+                  strokeWidth={selectedBottleId ? "1.5" : "2"}
+                  strokeLinejoin="round"
+                  className="transition-all duration-400 ease-out"
+                />
+
+                {/* 2. HIGHLIGHT SELECTED POLYGON (Visible only in Active Selection State) */}
+                {overlayBottleData && (
+                  <polygon
+                    points={overlayBottleData.pointsString}
+                    fill="url(#selectedPolygonGrad)"
+                    fillOpacity={0.60}
+                    stroke={overlayBottleData.accentColor || "#10b981"}
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                    className="transition-all duration-300 ease-out animate-fadeIn"
+                  />
+                )}
+
+                {/* 3. CLICKABLE AXIS NODE DOTS (Rendered ONLY in Active Selection State) */}
+                {overlayBottleData && overlayBottleData.vertices.map((v, i) => {
+                  const isNodeHighlighted = activeCategoryHighlight === v.cat.id;
+                  const nodeColor = overlayBottleData.accentColor || '#10b981';
+
+                  return (
+                    <g 
+                      key={`active-node-${i}`} 
+                      className="cursor-pointer group"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveCategoryHighlight(activeCategoryHighlight === v.cat.id ? null : v.cat.id);
+                      }}
+                    >
+                      {/* Wide invisible hit area to prevent mouse flicker / jittering */}
+                      <circle cx={v.x} cy={v.y} r={14} fill="transparent" />
+
+                      {/* Outer pulse aura for active/hover state */}
+                      <circle
+                        cx={v.x}
+                        cy={v.y}
+                        r={isNodeHighlighted ? 10 : 8}
+                        fill={nodeColor}
+                        fillOpacity={isNodeHighlighted ? 0.35 : 0}
+                        className="transition-all duration-200 group-hover:fill-opacity-25 pointer-events-none"
+                      />
+
+                      {/* Main Node Circle */}
+                      <circle
+                        cx={v.x}
+                        cy={v.y}
+                        r={isNodeHighlighted ? 5.5 : 4.5}
+                        fill={nodeColor}
+                        stroke="#ffffff"
+                        strokeWidth="1.8"
+                        filter="url(#dotGlow)"
+                        className="transition-all duration-200 pointer-events-none"
+                      />
+                      
+                      {/* Center Pin */}
+                      <circle
+                        cx={v.x}
+                        cy={v.y}
+                        r={1.5}
+                        fill="#ffffff"
+                        className="pointer-events-none"
+                      />
+                    </g>
+                  );
+                })}
+
+                {/* Center dot */}
+                <circle cx={CENTER} cy={CENTER} r={3} fill="#a8a29e" />
+              </svg>
+            </div>
+
+            {/* 4. FLOATING POPOVER BREAKDOWN CARD FOR SELECTED BOTTLE */}
+            {overlayBottleData && (
+              <div className="w-full max-w-md bg-white/95 backdrop-blur-md rounded-2xl border border-stone-200/90 p-4 shadow-lg animate-fadeIn space-y-3 mt-2 max-h-[340px] overflow-y-auto overscroll-contain">
+                <div className="flex items-start justify-between gap-3 border-b border-stone-100 pb-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-12 shrink-0 flex items-center justify-center p-1 bg-stone-50 rounded-xl border border-stone-200">
+                      <BottleClipart fragrance={overlayBottleData.bottle} size="sm" className="w-8 h-10 object-contain" />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="font-serif font-bold text-sm text-stone-900 truncate">
+                        {overlayBottleData.bottle.name}
+                      </h4>
+                      <p className="text-[11px] text-stone-500 uppercase tracking-wider truncate">
+                        {overlayBottleData.bottle.brand} • {overlayBottleData.bottle.genderVibe || 'Unisex'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      onClick={() => onSelectDetail && onSelectDetail(overlayBottleData.bottle)}
+                      className="text-xs font-semibold text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-2.5 py-1 rounded-lg transition-all"
+                    >
+                      Details
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedBottleId(null);
+                        setActiveCategoryHighlight(null);
+                      }}
+                      className="p-1 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-all"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Accord Breakdown Matrix */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px] font-semibold text-stone-500 uppercase tracking-wider">
+                    <span>Estimated Accord Profile</span>
+                    <span>Intensity</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-2 pt-1">
+                    {overlayBottleData.sortedAccords.map((accord) => {
+                      const isHighlighted = activeCategoryHighlight === accord.cat.id;
+                      return (
+                        <div
+                          key={accord.cat.id}
+                          onClick={() => setActiveCategoryHighlight(isHighlighted ? null : accord.cat.id)}
+                          className={`p-2 rounded-xl border transition-all cursor-pointer flex flex-col justify-between gap-1.5 ${
+                            isHighlighted 
+                              ? 'bg-stone-900 text-white border-stone-900 ring-1 ring-stone-900' 
+                              : 'bg-stone-50/80 border-stone-200/80 hover:bg-stone-100'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className={`text-xs font-medium truncate ${isHighlighted ? 'text-white font-bold' : 'text-stone-800'}`}>
+                              {accord.cat.name}
+                            </span>
+                            <span className={`text-[11px] font-mono font-bold ${isHighlighted ? 'text-teal-300' : 'text-stone-600'}`}>
+                              {accord.percent}%
+                            </span>
+                          </div>
+                          
+                          {/* Mini Progress Bar */}
+                          <div className="w-full bg-stone-200/60 rounded-full h-1.5 overflow-hidden">
+                            <div
+                              className="h-full rounded-full transition-all duration-300"
+                              style={{ 
+                                width: `${Math.min(100, Math.max(10, accord.percent))}%`,
+                                backgroundColor: isHighlighted ? '#2dd4bf' : (overlayBottleData.accentColor || '#10b981')
+                              }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Vibe Quote */}
+                {overlayBottleData.bottle.vibeCheck && (
+                  <div className="bg-stone-50/90 p-2.5 rounded-xl border border-stone-100">
+                    <p className="text-xs italic text-stone-600 leading-relaxed">
+                      "{overlayBottleData.bottle.vibeCheck}"
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+          </div>
+
+          {/* 2. SELECT BOTTLE TO OVERLAY SECTION */}
+          <div className="space-y-4 pt-2">
+            
+            {/* Section Header */}
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs font-bold tracking-widest text-stone-500 uppercase">
+                Select Bottle to Overlay
+              </h2>
+              {selectedBottleId && (
+                <span className="text-[11px] text-teal-700 font-medium">
+                  1 selected
+                </span>
+              )}
+            </div>
+
+            {/* Search Bar with Magnifying Glass */}
+            <div className="relative w-full">
+              <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search your shelf..."
+                className="w-full pl-10 pr-4 py-2.5 bg-stone-100/70 border border-stone-200 rounded-2xl text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-stone-400 focus:border-stone-400 transition-all"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            {/* 3-Column Bottle Cards Grid */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-4">
+              {filteredBottles.map(bottle => {
+                const isSelected = selectedBottleId === bottle.id;
+
+                return (
+                  <div
+                    key={bottle.id}
+                    onClick={() => handleToggleSelectBottle(bottle.id)}
+                    className={`rounded-2xl border p-3 flex flex-col items-center justify-between text-center transition-all cursor-pointer min-h-[160px] ${
+                      isSelected
+                        ? 'bg-teal-50/70 border-teal-500 ring-2 ring-teal-500/30 shadow-xs'
+                        : 'bg-[#faf9f6] border-stone-200 hover:border-stone-300 hover:bg-white'
+                    }`}
+                  >
+                    {/* Bottle Clipart Visual */}
+                    <div className="w-full flex-1 flex items-center justify-center py-1">
+                      <BottleClipart
+                        fragrance={bottle}
+                        size="md"
+                        className="w-16 h-20"
+                      />
+                    </div>
+
+                    {/* Bottle Name */}
+                    <div className="w-full mt-2 pt-1 border-t border-stone-100/60">
+                      <p className="text-[11px] font-medium text-stone-900 leading-tight line-clamp-2">
+                        {bottle.name}
+                      </p>
+                      <p className="text-[9px] text-stone-500 truncate mt-0.5 uppercase tracking-wider">
+                        {bottle.brand}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {filteredBottles.length === 0 && (
+              <div className="py-8 text-center bg-stone-50 rounded-2xl border border-stone-200">
+                <p className="text-sm text-stone-500">No fragrances matching "{searchQuery}"</p>
+              </div>
+            )}
+
+          </div>
+
+        </div>
+      ) : (
+        /* GRID VIEW (8 Olfactory Category Cards) */
+        <div className="grid grid-cols-2 gap-3">
+          {EIGHT_RADAR_CATEGORIES.map(cat => {
+            const bottlesInCat = baselineCollection.filter(b => {
+              const weights = calculateFragranceAccordWeights(b);
+              return (weights[cat.id] || 0) > 0.15;
+            });
+
+            return (
+              <div 
+                key={cat.id} 
+                onClick={() => setSelectedCategoryForModal({ cat, bottles: bottlesInCat })}
+                className="bg-[#faf9f6] rounded-2xl p-4 border border-stone-200 shadow-2xs flex flex-col h-44 cursor-pointer hover:border-stone-400 transition-all"
+              >
+                <div className="flex items-center justify-between border-b border-stone-200/70 pb-2">
+                  <h3 className="font-serif font-bold text-sm text-stone-900">{cat.fullName || cat.name}</h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white border border-stone-200 text-stone-600">
+                    {bottlesInCat.length}
+                  </span>
+                </div>
+
+                <div className="flex-1 overflow-y-auto mt-2 space-y-1.5 pr-1 scrollbar-hide">
+                  {bottlesInCat.length > 0 ? (
+                    bottlesInCat.slice(0, 2).map(bottle => (
+                      <div 
+                        key={bottle.id} 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectDetail(bottle);
+                        }}
+                        className="p-1.5 rounded-xl bg-white border border-stone-200 flex items-center gap-2 hover:border-stone-400 transition-all"
+                      >
+                        <BottleClipart fragrance={bottle} size="sm" className="w-6 h-8 shrink-0" />
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-medium text-[11px] text-stone-900 truncate">{bottle.name}</h4>
+                          <p className="text-[9px] text-stone-400 uppercase truncate">{bottle.brand}</p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="h-full flex items-center justify-center">
+                      <p className="text-[11px] text-stone-400 italic">No shelf bottles</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* CATEGORY MODAL FOR GRID MODE */}
+      {selectedCategoryForModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/50 backdrop-blur-xs animate-fadeIn">
+          <div className="w-full max-w-sm bg-white rounded-3xl p-5 border border-stone-200 shadow-2xl space-y-4 max-h-[80vh] flex flex-col">
+            <div className="flex items-center justify-between">
+              <h3 className="font-serif font-bold text-lg text-stone-900">
+                {selectedCategoryForModal.cat.fullName}
+              </h3>
               <button 
                 onClick={() => setSelectedCategoryForModal(null)}
-                className="p-1.5 rounded-full bg-stone-100 text-stone-500 hover:bg-stone-200 hover:text-stone-900"
+                className="p-1.5 rounded-full bg-stone-100 text-stone-500 hover:bg-stone-200"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-3 pr-1">
+            <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
               {selectedCategoryForModal.bottles.length > 0 ? (
-                selectedCategoryForModal.bottles.map(bottle => (
-                  <div 
-                    key={bottle.id} 
+                selectedCategoryForModal.bottles.map(b => (
+                  <div
+                    key={b.id}
                     onClick={() => {
                       setSelectedCategoryForModal(null);
-                      onSelectDetail(bottle);
+                      onSelectDetail(b);
                     }}
-                    className="p-3 rounded-2xl bg-[#faf9f6] border border-stone-200 flex flex-col hover:border-stone-400 transition-all cursor-pointer"
+                    className="p-3 rounded-2xl bg-[#faf9f6] border border-stone-200 flex items-center gap-3 hover:border-stone-400 cursor-pointer transition-all"
                   >
-                    <h4 className="font-serif font-bold text-sm text-stone-900">{bottle.name}</h4>
-                    <p className="text-xs text-stone-500 uppercase">{bottle.brand}</p>
+                    <BottleClipart fragrance={b} size="sm" className="w-8 h-10 shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-medium text-sm text-stone-900 truncate">{b.name}</h4>
+                      <p className="text-xs text-stone-500 uppercase">{b.brand}</p>
+                    </div>
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-stone-500 font-medium italic py-4 text-center">No fragrances in this category on your shelf.</p>
+                <p className="text-sm text-stone-400 italic text-center py-4">No bottles in this category.</p>
               )}
             </div>
           </div>

@@ -22,6 +22,20 @@ export function generateRecommendations(preferences, limit = 3, offset = 0) {
   if (rankedNotes.includes('woody') || rankedNotes.includes('smoky-incense')) targetVector.woody += 0.4;
   if (rankedNotes.includes('floral')) targetVector.floral += 0.4;
 
+  const isBeginner = (ownedFragrances || []).length === 0;
+
+  // Resolve olfactory families of owned fragrances
+  const ownedFamilies = new Set();
+  (ownedFragrances || []).forEach(name => {
+    const found = FRAGRANCE_DATABASE.find(f => 
+      f.name.toLowerCase() === name.toLowerCase() || 
+      f.id.toLowerCase() === name.toLowerCase()
+    );
+    if (found && Array.isArray(found.olfactoryFamilies)) {
+      found.olfactoryFamilies.forEach(fam => ownedFamilies.add(fam));
+    }
+  });
+
   const scoredFragrances = FRAGRANCE_DATABASE.map(fragrance => {
     let score = 40;
 

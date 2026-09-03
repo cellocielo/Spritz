@@ -6,26 +6,23 @@ export default function StepClimate({ climate, setClimate, onNext, onPrev }) {
     {
       id: 'summer',
       title: 'Warm & Humid',
-      subtitle: 'Heat amplifies scent projection',
-      description: 'High temperatures make heavy fragrances project aggressively. Light citrus, crisp green, and fresh aquatic notes excel here.',
+      subtitle: 'Citrus, aquatic, and fresh greens that thrive in heat',
       icon: Sun,
-      badge: 'Summer / Tropics'
+      badge: 'Summer / Heat'
     },
     {
       id: 'all-year',
       title: 'Temperate / Moderate',
-      subtitle: 'Four seasons or mild weather',
-      description: 'Balanced temperatures allow incredible versatility. Woods, fresh spices, and clean musks perform flawlessly.',
+      subtitle: 'Versatile woods, clean musks, and balanced aromatic notes',
       icon: ThermometerSun,
-      badge: 'Spring / All-Year'
+      badge: 'All-Year'
     },
     {
       id: 'winter',
-      title: 'Crisp & Cold / Winter',
-      subtitle: 'Cold air demands rich cozy notes',
-      description: 'Low humidity & chill air suppress scent volatility. Demands cozy vanilla, spicy tobacco, amber, cognac, and deep woods.',
+      title: 'Crisp & Cold',
+      subtitle: 'Warm vanilla, rich tobacco, amber, and deep woods',
       icon: Snowflake,
-      badge: 'Autumn / Winter'
+      badge: 'Fall / Winter'
     }
   ];
 
@@ -33,11 +30,11 @@ export default function StepClimate({ climate, setClimate, onNext, onPrev }) {
     <div className="space-y-6 text-[#1c1917]">
       
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
+        <h2 className="text-2xl sm:text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
           Climate & Location
         </h2>
-        <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed font-medium">
-          Where will you be wearing this fragrance? Heat and humidity change how scents evaporate and project.
+        <p className="text-xs text-stone-600 max-w-sm mx-auto font-medium">
+          Choose the primary weather condition where you'll wear this scent.
         </p>
       </div>
 
@@ -56,25 +53,22 @@ export default function StepClimate({ climate, setClimate, onNext, onPrev }) {
                   : 'bg-[#f4f0ea] text-[#1c1917] border-stone-200 hover:border-stone-400 hover:bg-white'
               }`}
             >
-              <div className="flex items-start gap-3.5">
+              <div className="flex items-center gap-3.5">
                 <div className={`p-3 rounded-2xl border shrink-0 ${isSelected ? 'bg-stone-800 border-stone-700 text-white' : 'bg-white border-stone-300 text-[#1c1917]'}`}>
                   <Icon className="w-5 h-5" />
                 </div>
-                <div className="flex-1 space-y-1">
+                <div className="flex-1 space-y-0.5">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-serif text-lg font-bold flex items-center gap-2">
+                    <h3 className="font-serif text-base font-bold flex items-center gap-2">
                       {opt.title}
-                      {isSelected && <Sparkles className="w-4 h-4 text-white fill-white" />}
+                      {isSelected && <Sparkles className="w-3.5 h-3.5 text-white fill-white" />}
                     </h3>
                     <span className={`text-[10px] uppercase font-sans tracking-wider px-2 py-0.5 rounded-full border font-bold ${isSelected ? 'bg-stone-800 text-stone-200 border-stone-700' : 'bg-white text-stone-700 border-stone-300'}`}>
                       {opt.badge}
                     </span>
                   </div>
-                  <p className={`text-xs font-semibold ${isSelected ? 'text-stone-300' : 'text-stone-800'}`}>
+                  <p className={`text-xs font-medium ${isSelected ? 'text-stone-300' : 'text-stone-600'}`}>
                     {opt.subtitle}
-                  </p>
-                  <p className={`text-xs leading-relaxed ${isSelected ? 'text-stone-300' : 'text-stone-600'}`}>
-                    {opt.description}
                   </p>
                 </div>
               </div>

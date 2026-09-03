@@ -5,27 +5,24 @@ export default function StepSillage({ sillage, setSillage, onSubmit, onPrev, isG
   const sillageOptions = [
     {
       id: 'skin-scent',
-      title: 'Subtle Skin Scent',
-      subtitle: 'Just for me and those close',
-      description: 'Intimate and warm. Discovered only when hugged or standing right beside someone.',
+      title: 'Subtle & Intimate',
+      subtitle: 'Soft skin scent discovered only at close distance',
       icon: VolumeX,
-      badge: 'Close & Intimate'
+      badge: 'Intimate'
     },
     {
       id: 'pleasant-trail',
-      title: 'Inviting Scent Trail',
-      subtitle: 'A pleasant aura as I walk by',
-      description: 'The golden balance. Leaves an elegant scent trail behind you in hallways without overpowering a room.',
+      title: 'Balanced Scent Trail',
+      subtitle: 'Leaves an alluring, elegant aura as you walk past',
       icon: Volume1,
-      badge: 'Balanced Trail'
+      badge: 'Moderate'
     },
     {
       id: 'beast-mode',
-      title: 'Commanding Presence',
-      subtitle: 'Walk in and be noticed',
-      description: 'Make your presence known immediately upon entering a room. Long performance and strong projection.',
+      title: 'Commanding Projection',
+      subtitle: 'High projection and long-lasting room presence',
       icon: Volume2,
-      badge: 'Strong Projection'
+      badge: 'Strong'
     }
   ];
 
@@ -33,11 +30,11 @@ export default function StepSillage({ sillage, setSillage, onSubmit, onPrev, isG
     <div className="space-y-6 text-[#1c1917]">
       
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
+        <h2 className="text-2xl sm:text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
           Scent Presence & Trail
         </h2>
-        <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed font-medium">
-          How strong do you want your fragrance aura to be when you enter a room?
+        <p className="text-xs text-stone-600 max-w-sm mx-auto font-medium">
+          Choose your preferred projection strength and trail.
         </p>
       </div>
 
@@ -56,25 +53,22 @@ export default function StepSillage({ sillage, setSillage, onSubmit, onPrev, isG
                   : 'bg-[#f4f0ea] text-[#1c1917] border-stone-200 hover:border-stone-400 hover:bg-white'
               }`}
             >
-              <div className="flex items-start gap-3.5">
+              <div className="flex items-center gap-3.5">
                 <div className={`p-3 rounded-2xl border shrink-0 ${isSelected ? 'bg-stone-800 border-stone-700 text-white' : 'bg-white border-stone-300 text-[#1c1917]'}`}>
                   <Icon className="w-5 h-5" />
                 </div>
-                <div className="flex-1 space-y-1">
+                <div className="flex-1 space-y-0.5">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-serif text-lg font-bold flex items-center gap-2">
+                    <h3 className="font-serif text-base font-bold flex items-center gap-2">
                       {opt.title}
-                      {isSelected && <Sparkles className="w-4 h-4 text-white fill-white" />}
+                      {isSelected && <Sparkles className="w-3.5 h-3.5 text-white fill-white" />}
                     </h3>
                     <span className={`text-[10px] uppercase font-sans tracking-wider px-2 py-0.5 rounded-full border font-bold ${isSelected ? 'bg-stone-800 text-stone-200 border-stone-700' : 'bg-white text-stone-700 border-stone-300'}`}>
                       {opt.badge}
                     </span>
                   </div>
-                  <p className={`text-xs font-semibold ${isSelected ? 'text-stone-300' : 'text-stone-800'}`}>
-                    "{opt.subtitle}"
-                  </p>
-                  <p className={`text-xs leading-relaxed ${isSelected ? 'text-stone-300' : 'text-stone-600'}`}>
-                    {opt.description}
+                  <p className={`text-xs font-medium ${isSelected ? 'text-stone-300' : 'text-stone-600'}`}>
+                    {opt.subtitle}
                   </p>
                 </div>
               </div>

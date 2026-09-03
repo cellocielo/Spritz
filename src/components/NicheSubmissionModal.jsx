@@ -47,9 +47,9 @@ export default function NicheSubmissionModal({ isOpen, onClose, initialQuery = '
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-stone-900/60 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-3 bg-stone-900/60 backdrop-blur-sm animate-fadeIn">
       
-      <div className="w-full max-w-lg bg-white border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 space-y-5 shadow-2xl relative text-stone-900 max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-[390px] sm:max-w-md mx-auto bg-white border border-stone-200 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 space-y-5 shadow-2xl relative text-stone-900 max-h-[88%] overflow-y-auto">
         
         {/* Close Button */}
         <button
@@ -66,7 +66,7 @@ export default function NicheSubmissionModal({ isOpen, onClose, initialQuery = '
             Crowdsourced Niche Submissions
           </div>
           <h2 className="text-2xl font-serif font-bold text-stone-900">
-            Submit an Unlisted Micro-Niche Scent
+            Submit an Unlisted Scent
           </h2>
           <p className="text-xs text-stone-600 font-medium">
             Found an obscure indie or artisan bottle not in public datasets? Submit it here for community verification.

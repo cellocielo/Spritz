@@ -10,34 +10,40 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
     <div className="space-y-6 pb-12 animate-fadeIn text-stone-900">
       
       {/* Clean Minimal Header */}
-      <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex items-center justify-between">
-        <h2 className="text-2xl font-serif font-bold text-stone-900 flex items-center gap-2">
-          <Users className="w-5 h-5 text-stone-900" />
-          <span>Friends & Community</span>
-        </h2>
-        
-        {/* Toggle between Activity Feed and Friends List */}
-        <div className="flex bg-stone-100 p-1 rounded-2xl border border-stone-200 text-xs font-bold">
-          <button
-            onClick={() => {
-              setActiveSubTab('feed');
-              setSelectedFriend(null);
-            }}
-            className={`px-3 py-1.5 rounded-xl transition-all ${
-              activeSubTab === 'feed' ? 'bg-stone-900 text-white shadow-2xs' : 'text-stone-600'
-            }`}
-          >
-            Activity Feed
-          </button>
-          <button
-            onClick={() => setActiveSubTab('friends')}
-            className={`px-3 py-1.5 rounded-xl transition-all ${
-              activeSubTab === 'friends' ? 'bg-stone-900 text-white shadow-2xs' : 'text-stone-600'
-            }`}
-          >
-            Friends List ({MOCK_FRIENDS.length})
-          </button>
+      <div className="bg-white rounded-2xl sm:rounded-3xl px-5 py-4 border border-stone-200 shadow-xs flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <Users className="w-5 h-5 text-stone-900 shrink-0 stroke-[1.8]" />
+          <h2 className="text-xl sm:text-2xl font-bold font-serif text-stone-900 tracking-tight">
+          Friends
+          </h2>
         </div>
+        
+        {/* Toggle between Activity and Friends (Segmented Pill) */}
+              <div className="flex items-center bg-[#e4e4e7]/80 p-1 rounded-full text-xs font-bold shrink-0">
+        <button
+          onClick={() => {
+            setActiveSubTab('feed');
+            setSelectedFriend(null);
+          }}
+          className={`px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap text-[11px] sm:text-xs font-bold ${
+            activeSubTab === 'feed'
+              ? 'bg-black text-white shadow-xs'
+              : 'text-stone-700 hover:text-stone-900'
+          }`}
+        >
+          Activity
+        </button>
+        <button
+          onClick={() => setActiveSubTab('friends')}
+          className={`px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap text-[11px] sm:text-xs font-bold ${
+            activeSubTab === 'friends'
+              ? 'bg-black text-white shadow-xs'
+              : 'text-stone-700 hover:text-stone-900'
+          }`}
+        >
+          Friends
+        </button>
+      </div>
       </div>
 
       {/* VIEW 1: ACTIVITY FEED (PRIMARY DEFAULT VIEW) */}
@@ -102,18 +108,18 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
           {MOCK_FRIENDS.map((friend) => (
             <div
               key={friend.id}
-              className="bg-white rounded-3xl p-4 border border-stone-200 flex items-center justify-between shadow-2xs hover:border-stone-400 transition-all"
+              className="bg-white rounded-3xl p-4 border border-stone-200 flex items-center justify-between shadow-2xs hover:border-stone-400 transition-all gap-3"
             >
               <div 
                 onClick={() => setSelectedFriend(friend)}
-                className="flex items-center gap-3 flex-1 cursor-pointer min-w-0"
+                className="flex items-center gap-3 flex-1 cursor-pointer min-w-0 pr-4 mr-1"
               >
                 <img
                   src={friend.avatar}
                   alt={friend.name}
                   className="w-12 h-12 rounded-full object-cover border border-stone-200 shrink-0"
                 />
-                <div className="space-y-0.5 min-w-0 pr-2">
+                <div className="space-y-0.5 min-w-0 flex-1">
                   <h4 className="font-bold text-stone-900 text-sm truncate">{friend.name}</h4>
                   <p className="text-xs text-stone-500 font-semibold truncate">{friend.handle} • {friend.location}</p>
                   <p className="text-[11px] text-stone-600 font-medium truncate">Signature: {friend.topSignature}</p>

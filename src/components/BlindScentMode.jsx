@@ -13,32 +13,32 @@ export default function BlindScentMode({ isBlindMode, setIsBlindMode, wishlist =
     <div className="space-y-4 text-stone-900">
       
       {/* Opt-In Toggle Bar */}
-      <div className="bg-white rounded-3xl p-4 border border-stone-200 shadow-sm flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors ${
-            isBlindMode ? 'bg-amber-500 text-stone-950 shadow-sm' : 'bg-stone-100 text-stone-700'
+      <div className="bg-white rounded-2xl sm:rounded-3xl px-4 py-3.5 sm:p-4 border border-stone-200 shadow-xs flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 mr-1">
+          <div className={`p-1 flex items-center justify-center transition-colors shrink-0 ${
+            isBlindMode ? 'text-amber-600' : 'text-stone-700'
           }`}>
-            {isBlindMode ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+            {isBlindMode ? <EyeOff className="w-5 h-5 stroke-[1.8]" /> : <Eye className="w-5 h-5 stroke-[1.8]" />}
           </div>
-          <div>
-            <h3 className="font-serif font-bold text-base text-stone-900">
+          <div className="min-w-0">
+            <h3 className="font-serif font-bold text-sm sm:text-base text-stone-900 tracking-tight">
               Blind Discovery Mode
             </h3>
-            <p className="text-xs text-stone-600 font-medium">
-              Remove brand hype and rate scents purely on notes & olfactory structure.
+            <p className="text-[11px] sm:text-xs text-stone-500 font-medium leading-snug">
+              Rate scents purely on notes & olfactory structure.
             </p>
           </div>
         </div>
 
         <button
           onClick={() => setIsBlindMode(!isBlindMode)}
-          className={`px-4 py-2 rounded-2xl font-bold text-xs transition-all border shrink-0 ${
+          className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full font-bold text-xs transition-all border shrink-0 whitespace-nowrap ${
             isBlindMode
-              ? 'bg-stone-900 text-white border-stone-900 shadow-sm'
-              : 'bg-white text-stone-900 border-stone-300 hover:bg-stone-50'
+              ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
+              : 'bg-white text-stone-900 border-stone-300 hover:bg-stone-50 shadow-2xs'
           }`}
         >
-          {isBlindMode ? 'Blind Mode On' : 'Enable Blind Mode'}
+          {isBlindMode ? 'Blind Mode On' : 'Blind Mode Off'}
         </button>
       </div>
 
@@ -125,11 +125,14 @@ export function BlindFragranceCard({ fragrance, isBlindMode, onSelectDetail, isW
           Primary Olfactory Accords:
         </span>
         <div className="flex flex-wrap gap-1.5">
-          {mainAccords.map((acc) => (
-            <span key={acc} className="text-xs px-3 py-1 rounded-xl bg-[#faf9f6] border border-stone-200 text-stone-900 font-bold">
-              ✨ {acc}
-            </span>
-          ))}
+          {mainAccords.map((acc, idx) => {
+            const label = typeof acc === 'object' && acc !== null ? acc.name : acc;
+            return (
+              <span key={typeof label === 'string' ? label : idx} className="text-xs px-3 py-1 rounded-xl bg-[#faf9f6] border border-stone-200 text-stone-900 font-bold">
+                ✨ {label}
+              </span>
+            );
+          })}
         </div>
       </div>
 

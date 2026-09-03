@@ -2,7 +2,14 @@ import React from 'react';
 import { Sparkles, Compass, Sliders, Shield } from 'lucide-react';
 
 export default function ScentProfileVisualizer({ preferences }) {
-  const { climate, occasion, budget, notes = [], sillage } = preferences;
+  const { 
+    climate = 'all-year', 
+    occasion = 'daily', 
+    budget = '150-300', 
+    rankedNotes = [], 
+    notes = rankedNotes, 
+    sillage = 'pleasant-trail' 
+  } = preferences || {};
 
   const computeMetrics = () => {
     let warmth = 40;
@@ -10,13 +17,15 @@ export default function ScentProfileVisualizer({ preferences }) {
     let projection = 50;
     let elegance = 60;
 
+    const activeNotes = Array.isArray(notes) ? notes : [];
+
     if (climate === 'winter') { warmth += 35; freshness -= 20; }
     if (climate === 'summer') { freshness += 35; warmth -= 20; }
 
-    if (notes.includes('woods') || notes.includes('sweet-gourmand') || notes.includes('amber-oriental')) {
+    if (activeNotes.includes('woody') || activeNotes.includes('woods') || activeNotes.includes('gourmand') || activeNotes.includes('sweet-gourmand') || activeNotes.includes('vanilla-amber') || activeNotes.includes('amber-oriental')) {
       warmth += 25;
     }
-    if (notes.includes('fresh-citrus') || notes.includes('clean-laundry') || notes.includes('green-fig')) {
+    if (activeNotes.includes('fresh-citrus') || activeNotes.includes('clean-laundry') || activeNotes.includes('green-fig')) {
       freshness += 25;
     }
 

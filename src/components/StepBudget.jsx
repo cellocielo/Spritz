@@ -6,34 +6,34 @@ export default function StepBudget({ budget, setBudget, onNext, onPrev }) {
     {
       id: 'under-50',
       range: 'Under $50',
-      title: 'Accessible & Everyday',
-      description: 'Exceptional entry-level gems and high-value modern hits.',
+      title: 'Accessible Gems',
+      description: 'High-value designer clones and everyday staples',
       icon: Tag,
-      tag: 'Best Value'
+      tag: 'Value'
     },
     {
       id: '50-150',
       range: '$50 – $150',
-      title: 'Designer Sweet Spot',
-      description: 'The golden standard of luxury designer houses and popular boutique lines.',
+      title: 'Designer Standards',
+      description: 'Popular luxury designer houses and modern classics',
       icon: DollarSign,
-      tag: 'Most Popular'
+      tag: 'Popular'
     },
     {
       id: '150-300',
       range: '$150 – $300',
       title: 'Boutique & Niche',
-      description: 'Artisanal perfume houses using high oil concentrations and rare raw accords.',
+      description: 'Artisanal houses with high concentration and rare raw notes',
       icon: Sparkles,
-      tag: 'Artisanal Quality'
+      tag: 'Artisanal'
     },
     {
       id: 'luxury-300',
       range: '$300+',
-      title: 'Luxury Parfumerie',
-      description: 'Uncompromising luxury crafting high status statement scents.',
+      title: 'Haute Parfumerie',
+      description: 'Prestige luxury and statement collector perfumes',
       icon: Gem,
-      tag: 'Ultra Luxury'
+      tag: 'Prestige'
     }
   ];
 
@@ -41,11 +41,11 @@ export default function StepBudget({ budget, setBudget, onNext, onPrev }) {
     <div className="space-y-6 text-[#1c1917]">
       
       <div className="text-center space-y-1">
-        <h2 className="text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
+        <h2 className="text-2xl sm:text-3xl font-serif text-[#1c1917] font-bold tracking-wide">
           Investment & Price Range
         </h2>
-        <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed font-medium">
-          What is your comfortable price point for a full bottle?
+        <p className="text-xs text-stone-600 max-w-sm mx-auto font-medium">
+          Select your target price point for a full bottle.
         </p>
       </div>
 

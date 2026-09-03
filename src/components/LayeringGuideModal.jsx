@@ -22,9 +22,9 @@ export default function LayeringGuideModal({ recommendedFragrance, ownedFragranc
   const recipe = buildLayeringRecipe();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-stone-900/60 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-3 bg-stone-900/60 backdrop-blur-sm animate-fadeIn">
       
-      <div className="w-full max-w-lg bg-white border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 space-y-6 shadow-2xl relative text-[#1c1917]">
+      <div className="w-full max-w-[390px] sm:max-w-md mx-auto bg-white border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 space-y-6 shadow-2xl relative text-[#1c1917] max-h-[88%] overflow-y-auto">
         
         <button
           onClick={onClose}

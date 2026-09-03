@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Search, PlusCircle, Plus } from 'lucide-react';
 import { FRAGRANCE_DATABASE } from '../data/fragrances';
 import FragranceCard from './FragranceCard';
@@ -19,7 +19,16 @@ export default function BrowseFeed({
   const [isBlindMode, setIsBlindMode] = useState(false);
   const [isSubmissionOpen, setIsSubmissionOpen] = useState(false);
 
-  const fullDatabase = [...customSubmissions, ...FRAGRANCE_DATABASE];
+  const fullDatabase = useMemo(() => {
+    const combined = [...customSubmissions, ...FRAGRANCE_DATABASE];
+    const seen = new Set();
+    return combined.filter(item => {
+      if (!item || !item.id) return false;
+      if (seen.has(item.id)) return false;
+      seen.add(item.id);
+      return true;
+    });
+  }, [customSubmissions]);
 
   let displayedFragrances = fullDatabase;
 
@@ -34,8 +43,8 @@ export default function BrowseFeed({
     displayedFragrances = displayedFragrances.filter(f => 
       f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       f.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (f.olfactoryFamilies || []).some(fam => fam.includes(searchQuery.toLowerCase())) ||
-      (f.mainAccords || []).some(acc => acc.toLowerCase().includes(searchQuery.toLowerCase()))
+      (f.olfactoryFamilies || []).some(fam => (typeof fam === 'string' ? fam : fam?.name || '').toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (f.mainAccords || []).some(acc => (typeof acc === 'string' ? acc : acc?.name || '').toLowerCase().includes(searchQuery.toLowerCase()))
     );
   }
 
@@ -43,16 +52,17 @@ export default function BrowseFeed({
     <div className="space-y-6 pb-12 animate-fadeIn text-stone-900">
       
       {/* Minimal Header */}
-      <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex items-center justify-between">
-        <h2 className="text-2xl font-serif font-bold text-stone-900">
+      <div className="bg-white rounded-2xl sm:rounded-3xl px-4 py-3.5 sm:px-5 sm:py-4 border border-stone-200 shadow-xs flex items-center justify-between gap-3">
+        <h2 className="text-lg sm:text-2xl font-serif font-bold text-stone-900 tracking-tight whitespace-nowrap">
           Add Fragrances
         </h2>
         <button
           onClick={() => setIsSubmissionOpen(true)}
-          className="px-3.5 py-1.5 rounded-2xl bg-amber-50 text-amber-950 border border-amber-200 hover:bg-amber-100 font-bold text-xs flex items-center gap-1.5 transition-colors"
+          className="px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200/90 font-semibold text-xs flex items-center gap-1.5 transition-all shadow-2xs whitespace-nowrap shrink-0"
+          title="Submit an unlisted fragrance bottle"
         >
-          <Plus className="w-4 h-4 text-amber-600" />
-          <span>Submit Unlisted Bottle</span>
+          <Plus className="w-3.5 h-3.5 text-amber-700 stroke-[2.5]" />
+          <span>Submit Bottle</span>
         </button>
       </div>
 

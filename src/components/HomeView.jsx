@@ -42,9 +42,12 @@ export default function HomeView({
           Personal Fragrance Curator
         </div>
         
-        <h2 className="text-4xl sm:text-5xl font-serif text-[#1c1917] font-bold tracking-tight leading-tight">
+        <h2 className="text-3xl sm:text-4xl font-serif text-[#1c1917] font-bold tracking-tight leading-tight">
           Find Your Signature Scent
         </h2>
+        <p className="text-xs sm:text-sm text-stone-600 max-w-sm mx-auto font-medium">
+          Take a 30-second quiz to discover fragrances tailored to your style and mood.
+        </p>
       </div>
 
       {/* SECTION 1: INTERACTIVE MINI MATCH WIDGET */}

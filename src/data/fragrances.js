@@ -97,6 +97,7 @@ export function getCollectorRarity(count = 1) {
 export const FRAGRANCE_DATABASE = [
   {
     "id": "br540",
+    "imageUrl": "https://images.bloomingdalesassets.com/is/image/BLM/products/2/optimized/10103752_fpx.tif?wid=1000&fmt=jpeg",
     "name": "Baccarat Rouge 540",
     "brand": "Maison Francis Kurkdjian",
     "perfumer": "Francis Kurkdjian",
@@ -192,61 +193,8 @@ export const FRAGRANCE_DATABASE = [
     }
   },
   {
-    "id": "replica-jazz-club",
-    "name": "REPLICA Jazz Club",
-    "brand": "Maison Margiela",
-    "perfumer": "Alienor Massenet",
-    "category": "Niche",
-    "collectorsCount": 840,
-    "accordVector": {
-      "fresh": 0.1,
-      "gourmand": 0.8,
-      "woody": 0.9,
-      "floral": 0.1,
-      "resin": 0.7
-    },
-    "priceRange": "50-150",
-    "estimatedPrice": "$100"
-  },
-  {
-    id: "br540",
-    name: "Baccarat Rouge 540",
-    brand: "Maison Francis Kurkdjian",
-    perfumer: "Francis Kurkdjian",
-    category: "Niche",
-    collectorsCount: 1240,
-    accordVector: { fresh: 0.2, gourmand: 0.9, woody: 0.7, floral: 0.6, resin: 0.8 },
-    priceRange: "luxury-300",
-    estimatedPrice: "$325",
-    climates: ["fall", "winter", "spring", "all-year"],
-    occasions: ["date", "special", "clubbing"],
-    olfactoryFamilies: ["amber-oriental", "sweet-gourmand", "woods"],
-    vibeSettings: ["royal-gala", "parisian-bakery"],
-    sillage: "beast-mode",
-    longevity: "12+ hours",
-    genderVibe: "Unisex",
-    notes: {
-      top: ["Jasmine", "Saffron"],
-      heart: ["Amberwood", "Ambergris"],
-      base: ["Fir Resin", "Cedarwood"]
-    },
-    mainAccords: [{ name: "Amber", score: 100 }, { name: "Almond", score: 80 }, { name: "Woody", score: 60 }, { name: "Warm Spicy", score: 40 }],
-    vibeCheck: "Liquid gold in a crystal tumbler. Feels like floating through a chandelier-lit ballroom in silk velvet. Sweet, airy saffron intertwined with warm amberwood.",
-    pros: [
-      "Unmatched projection & signature scent status",
-      "Extremely long-lasting (12+ hours)",
-      "Addictive, luxurious complement puller"
-    ],
-    cons: [
-      "High price point ($325+)",
-      "Some people become nose-blind to saffron quickly",
-      "Widely recognized in luxury nightlife circles"
-    ],
-    gradient: "from-amber-600 via-red-900 to-amber-950",
-    accentColor: "#f59e0b"
-  },
-  {
     id: "replica-jazz-club",
+    imageUrl: "https://www.sephora.com/productimages/sku/s1602259-main-zoom.jpg",
     name: "REPLICA Jazz Club",
     brand: "Maison Margiela",
     perfumer: "Alienor Massenet",
@@ -283,6 +231,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "diptyque-philosykos",
+    imageUrl: "https://n.nordstrommedia.com/id/sr3/452cf529-5ffc-4977-83eb-259df95a5639.jpeg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196",
     name: "Philosykos EDP",
     brand: "Diptyque",
     perfumer: "Olivia Giacobetti",
@@ -319,6 +268,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "bleu-de-chanel",
+    imageUrl: "https://www.sephora.com/productimages/sku/s1685651-main-zoom.jpg",
     name: "Bleu de Chanel EDP",
     brand: "Chanel",
     perfumer: "Jacques Polge",
@@ -355,6 +305,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "santal-33",
+    imageUrl: "https://n.nordstrommedia.com/id/sr3/70a1a511-b841-4770-985c-05ecfa30ba68.jpeg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196",
     name: "Santal 33",
     brand: "Le Labo",
     perfumer: "Frank Voelkl",
@@ -391,6 +342,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "byredo-gypsy-water",
+    imageUrl: "https://n.nordstrommedia.com/id/sr3/73ca35fb-f7ec-44fc-a0f5-da7327891df9.jpeg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196",
     name: "Gypsy Water",
     brand: "Byredo",
     perfumer: "Jerome Epinette",
@@ -427,6 +379,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "angels-share",
+    imageUrl: "https://www.sephora.com/productimages/sku/s2366888-main-zoom.jpg",
     name: "Angels' Share",
     brand: "Kilian Paris",
     perfumer: "Benoist Lapouza",
@@ -463,6 +416,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "sauvage-elixir",
+    imageUrl: "https://www.sephora.com/productimages/sku/s2494425-main-zoom.jpg",
     name: "Sauvage Elixir",
     brand: "Dior",
     perfumer: "Francois Demachy",
@@ -499,6 +453,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "glossier-you",
+    imageUrl: "https://www.sephora.com/productimages/sku/s2641777-main-zoom.jpg",
     name: "You Eau de Parfum",
     brand: "Glossier",
     perfumer: "Dora Baghriche",
@@ -535,6 +490,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "wood-sage-sea-salt",
+    imageUrl: "https://www.sephora.com/productimages/sku/s1640168-main-zoom.jpg",
     name: "Wood Sage & Sea Salt",
     brand: "Jo Malone London",
     perfumer: "Christine Nagel",
@@ -571,6 +527,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "creed-aventus",
+    imageUrl: "https://images.bloomingdalesassets.com/is/image/BLM/products/8/optimized/11545628_fpx.tif?wid=1000&fmt=jpeg",
     name: "Aventus",
     brand: "Creed",
     perfumer: "Olivier Creed",
@@ -607,6 +564,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "replica-by-the-fireplace",
+    imageUrl: "https://www.sephora.com/productimages/sku/s1788058-main-zoom.jpg",
     name: "REPLICA By the Fireplace",
     brand: "Maison Margiela",
     perfumer: "Marie Salamagne",
@@ -643,6 +601,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "tom-ford-oud-wood",
+    imageUrl: "https://www.sephora.com/productimages/sku/s1449289-main-zoom.jpg",
     name: "Oud Wood",
     brand: "Tom Ford",
     perfumer: "Richard Herpin",
@@ -679,6 +638,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "pdm-layton",
+    imageUrl: "https://images.bloomingdalesassets.com/is/image/BLM/products/4/optimized/9779344_fpx.tif?wid=1000&fmt=jpeg",
     name: "Layton",
     brand: "Parfums de Marly",
     perfumer: "Hamid Merati-Kashani",
@@ -715,6 +675,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "clean-reserve-warm-cotton",
+    imageUrl: "https://www.sephora.com/productimages/sku/s1770635-main-zoom.jpg",
     name: "Warm Cotton",
     brand: "CLEAN Reserve",
     perfumer: "Steven Claisse",
@@ -751,6 +712,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "gaultier-le-male-elixir",
+    imageUrl: "https://www.sephora.com/productimages/sku/s2685410-main-zoom.jpg",
     name: "Le Male Elixir",
     brand: "Jean Paul Gaultier",
     perfumer: "Quentin Bisch",
@@ -787,6 +749,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "chanel-no-5-leau",
+    imageUrl: "https://www.sephora.com/productimages/sku/s1861053-main-zoom.jpg",
     name: "No. 5 L'Eau",
     brand: "Chanel",
     perfumer: "Olivier Polge",
@@ -823,6 +786,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "ysl-y-edp",
+    imageUrl: "https://www.sephora.com/productimages/sku/s2116036-main-zoom.jpg",
     name: "Y Eau de Parfum",
     brand: "Yves Saint Laurent",
     perfumer: "Dominique Ropion",
@@ -859,6 +823,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "boadicea-blue-sapphire",
+    imageUrl: "https://images.bloomingdalesassets.com/is/image/BLM/products/5/optimized/11559865_fpx.tif?wid=1000&fmt=jpeg",
     name: "Blue Sapphire Pure",
     brand: "Boadicea the Victorious",
     perfumer: "Christian Provenzano",
@@ -895,6 +860,7 @@ export const FRAGRANCE_DATABASE = [
   },
   {
     id: "xerjoff-richwood",
+    imageUrl: "https://images.bloomingdalesassets.com/is/image/BLM/products/6/optimized/10978926_fpx.tif?wid=1000&fmt=jpeg",
     name: "Richwood 1861",
     brand: "Xerjoff",
     perfumer: "Chris Maurice",
@@ -928,6 +894,130 @@ export const FRAGRANCE_DATABASE = [
     ],
     gradient: "from-amber-900 via-rose-950 to-stone-950",
     accentColor: "#d97706"
+  },
+  {
+    id: "musk-therapy",
+    imageUrl: "https://images.bloomingdalesassets.com/is/image/BLM/products/5/optimized/11993425_fpx.tif",
+    name: "Musk Therapy",
+    brand: "Initio Parfums Privés",
+    perfumer: "Alexandra Kosinski",
+    category: "Niche",
+    collectorsCount: 420,
+    accordVector: { fresh: 0.8, gourmand: 0.4, woody: 0.6, floral: 0.6, resin: 0.5 },
+    priceRange: "luxury-300",
+    estimatedPrice: "$390",
+    climates: ["all-year", "spring", "summer"],
+    occasions: ["daily", "date", "office"],
+    olfactoryFamilies: ["clean-laundry", "fresh-citrus", "floral"],
+    vibeSettings: ["fresh-linen-morning", "blooming-garden"],
+    sillage: "pleasant-trail",
+    longevity: "8-10 hours",
+    genderVibe: "Unisex",
+    notes: {
+      top: ["Bergamot", "Mandarin Orange"],
+      heart: ["White Magnolia", "Blackcurrant", "Hedione"],
+      base: ["White Musk", "White Sandalwood", "Pink Musk"]
+    },
+    mainAccords: [{ name: "Musky", score: 100 }, { name: "Citrus", score: 75 }, { name: "Powdery", score: 65 }, { name: "Woody", score: 50 }],
+    vibeCheck: "A velvety, uplifting wave of white musk and milky sandalwood enveloped in sparkling mandarin.",
+    pros: ["Addictive clean cloud aura", "High compliments", "Silky smooth blending"],
+    cons: ["High price point"],
+    gradient: "from-purple-900 via-stone-900 to-indigo-950",
+    accentColor: "#c084fc",
+    dominantCategory: "CitrusFresh"
+  },
+  {
+    id: "gris-charnel",
+    imageUrl: "https://www.luckyscent.com/images/products/84000.jpg",
+    name: "Gris Charnel",
+    brand: "BDK Parfums",
+    perfumer: "Mathilde Bijaoui",
+    category: "Niche",
+    collectorsCount: 610,
+    accordVector: { fresh: 0.3, gourmand: 0.6, woody: 0.9, floral: 0.3, resin: 0.7 },
+    priceRange: "150-300",
+    estimatedPrice: "$230",
+    climates: ["fall", "winter", "spring"],
+    occasions: ["date", "daily", "office"],
+    olfactoryFamilies: ["woods", "leather-spice", "amber-oriental"],
+    vibeSettings: ["cozy-jazz-lounge", "parisian-bakery"],
+    sillage: "pleasant-trail",
+    longevity: "8-10 hours",
+    genderVibe: "Unisex",
+    notes: {
+      top: ["Cardamom", "Fig", "Black Tea"],
+      heart: ["Iris", "Bourbon Vetiver", "Cistus"],
+      base: ["Sandalwood", "Tonka Bean"]
+    },
+    mainAccords: [{ name: "Warm Spicy", score: 100 }, { name: "Woody", score: 85 }, { name: "Fig", score: 70 }, { name: "Aromatic", score: 60 }],
+    vibeCheck: "A sensual Parisian evening along the Seine. Creamy spiced sandalwood, black tea, and velvety ripe fig.",
+    pros: ["Exquisite cardamom and fig blend", "Exceptional cozy all-weather signature", "Sophisticated sillage"],
+    cons: ["Can feel slightly heavy in extreme heat"],
+    gradient: "from-stone-800 via-neutral-900 to-zinc-950",
+    accentColor: "#78716c",
+    dominantCategory: "Spicy"
+  },
+  {
+    id: "molecule-01",
+    imageUrl: "https://www.luckyscent.com/images/products/37600.jpg",
+    name: "Molecule 01",
+    brand: "Escentric Molecules",
+    perfumer: "Geza Schoen",
+    category: "Niche",
+    collectorsCount: 890,
+    accordVector: { fresh: 0.7, gourmand: 0.1, woody: 0.9, floral: 0.1, resin: 0.4 },
+    priceRange: "50-150",
+    estimatedPrice: "$150",
+    climates: ["all-year", "spring", "summer"],
+    occasions: ["daily", "office", "fresh-gym"],
+    olfactoryFamilies: ["woods", "clean-laundry"],
+    vibeSettings: ["fresh-linen-morning"],
+    sillage: "intimate-bubble",
+    longevity: "10+ hours",
+    genderVibe: "Unisex",
+    notes: {
+      top: ["Iso E Super"],
+      heart: ["Iso E Super"],
+      base: ["Iso E Super"]
+    },
+    mainAccords: [{ name: "Woody", score: 100 }, { name: "Musky", score: 80 }, { name: "Amber", score: 50 }],
+    vibeCheck: "The ultimate skin scent pheromone aura. Soft cedarwood that vanishes and reappears in magnetic waves.",
+    pros: ["Incredible layering companion", "Hypnotic effect on people around you", "Pure minimalism"],
+    cons: ["Wearer can become anosmic quickly"],
+    gradient: "from-sky-900 via-slate-900 to-blue-950",
+    accentColor: "#38bdf8",
+    dominantCategory: "Woody"
+  },
+  {
+    id: "lombre-dans-leau",
+    imageUrl: "https://n.nordstrommedia.com/id/sr3/64c39cb0-1f9c-48c9-bc4c-f1df4a7eb06b.jpeg",
+    name: "L'Ombre Dans L'Eau",
+    brand: "Diptyque",
+    perfumer: "Serge Kalouguine",
+    category: "Niche",
+    collectorsCount: 380,
+    accordVector: { fresh: 0.8, gourmand: 0.2, woody: 0.6, floral: 0.8, resin: 0.3 },
+    priceRange: "150-300",
+    estimatedPrice: "$230",
+    climates: ["spring", "summer"],
+    occasions: ["daily", "office", "date"],
+    olfactoryFamilies: ["green-fig", "floral", "fresh-citrus"],
+    vibeSettings: ["dewy-rainforest", "blooming-garden"],
+    sillage: "pleasant-trail",
+    longevity: "7-9 hours",
+    genderVibe: "Unisex",
+    notes: {
+      top: ["Blackcurrant Leaf", "Blackcurrant"],
+      heart: ["Damask Rose"],
+      base: ["Petitgrain", "Ambergris", "Musk"]
+    },
+    mainAccords: [{ name: "Green", score: 100 }, { name: "Fruity", score: 80 }, { name: "Rose", score: 75 }, { name: "Aromatic", score: 60 }],
+    vibeCheck: "An English garden asleep beside a calm river. Crushed blackcurrant leaves in morning dew and dewy garden roses.",
+    pros: ["Poetic botanical greenery", "Fresh crisp rose without heaviness", "Timeless artistic elegance"],
+    cons: ["Very tart green opening"],
+    gradient: "from-emerald-900 via-green-950 to-stone-950",
+    accentColor: "#059669",
+    dominantCategory: "AromaticGreen"
   }
 ];
 
@@ -948,5 +1038,9 @@ export const MOCK_SEARCH_SUGGESTIONS = [
   "CLEAN Reserve Warm Cotton",
   "Jean Paul Gaultier Le Male Elixir",
   "Chanel No. 5 L'Eau",
-  "YSL Y EDP"
+  "YSL Y EDP",
+  "Initio Musk Therapy",
+  "BDK Gris Charnel",
+  "Molecule 01",
+  "Diptyque L'Ombre Dans L'Eau"
 ];

@@ -31,9 +31,9 @@ export default function FragranceDetailModal({
   const rarity = getCollectorRarity(collectorsCount);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-stone-900/60 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-3 bg-stone-900/60 backdrop-blur-sm animate-fadeIn">
       
-      <div className="w-full max-w-lg bg-white border border-stone-200 rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative text-stone-900">
+      <div className="w-full max-w-[390px] sm:max-w-md mx-auto bg-white border border-stone-200 rounded-t-3xl sm:rounded-3xl max-h-[88%] overflow-y-auto shadow-2xl relative text-stone-900">
         
         {/* Header Visual Backdrop */}
         <div className="p-6 bg-[#faf9f6] relative overflow-hidden rounded-t-3xl border-b border-stone-200">

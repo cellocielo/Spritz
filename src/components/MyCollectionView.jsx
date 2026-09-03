@@ -141,23 +141,23 @@ export default function MyCollectionView({
                 </div>
 
                 {/* Actions */}
-                <div className="flex flex-col gap-2 shrink-0">
+                <div className="flex flex-col items-center justify-center gap-2 shrink-0 w-12">
                   <button
                     onClick={() => onSelectDetail(frag)}
-                    className="px-3 py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs transition-colors"
+                    className="w-full py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs transition-colors text-center"
                   >
                     View
                   </button>
                   <button
                     onClick={() => onToggleWishlist(frag)}
-                    className={`p-2 rounded-xl border transition-colors ${
+                    className={`w-8 h-8 rounded-xl border flex items-center justify-center transition-colors ${
                       isWishlisted 
                         ? 'bg-rose-50 border-rose-200 text-rose-600' 
                         : 'bg-[#faf9f6] border-stone-200 text-stone-400 hover:text-stone-700'
                     }`}
                     title={isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
                   >
-                    <Heart className={`w-3.5 h-3.5 ${isWishlisted ? 'fill-rose-500' : ''}`} />
+                    <Heart className={`w-3.5 h-3.5 ${isWishlisted ? 'fill-rose-500 text-rose-500' : ''}`} />
                   </button>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function MyCollectionView({
                     </button>
                     <button
                       onClick={() => onToggleWishlist(frag)}
-                      className="p-2 rounded-xl bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100"
+                      className="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100 flex items-center justify-center"
                       title="Remove"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -255,10 +255,10 @@ export default function MyCollectionView({
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h3 className="font-serif font-bold text-lg text-white">
-              Looking for a New Signature Scent?
+              Find Your Signature Scent
             </h3>
             <p className="text-xs text-amber-100 leading-relaxed max-w-xs">
-              Answer 6 quick questions about your climate, vibe & budget to find your 99% match.
+              Take a 30-second quiz to discover fragrances tailored to your style and mood.
             </p>
           </div>
           <button
