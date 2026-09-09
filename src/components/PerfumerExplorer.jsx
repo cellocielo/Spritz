@@ -53,7 +53,7 @@ export default function PerfumerExplorer({ ownedFragranceNames = [], onSelectDet
                     Master Artist: {perfumer}
                   </h4>
                   <p className="text-[11px] text-stone-500 font-medium">
-                    Signature style: {ownedOfPerfumer ? `Creator of ${ownedOfPerfumer.name}` : 'Haute Parfumerie'}
+                    Signature style: {ownedOfPerfumer ? `Creator of ${ownedOfPerfumer.name}` : 'Niche & Fine Fragrance'}
                   </p>
                 </div>
                 <span className="text-[10px] font-bold text-stone-700 bg-white px-2.5 py-1 rounded-xl border border-stone-200">

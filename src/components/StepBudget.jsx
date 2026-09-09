@@ -30,7 +30,7 @@ export default function StepBudget({ budget, setBudget, onNext, onPrev }) {
     {
       id: 'luxury-300',
       range: '$300+',
-      title: 'Haute Parfumerie',
+      title: 'Prestige & High Luxury',
       description: 'Prestige luxury and statement collector perfumes',
       icon: Gem,
       tag: 'Prestige'

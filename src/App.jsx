@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import MobileFrame from './components/MobileFrame';
-import Header from './components/Header';
+import TopBar from './components/TopBar';
+import BottomNavbar from './components/BottomNavbar';
+import SettingsModal from './components/SettingsModal';
+import SignInView from './components/SignInView';
 import ProgressBar from './components/ProgressBar';
 import MyCollectionView from './components/MyCollectionView';
 import BrowseFeed from './components/BrowseFeed';
@@ -46,6 +49,12 @@ export default function App() {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [selectedDetailFragrance, setSelectedDetailFragrance] = useState(null);
   const [selectedLayeringFragrance, setSelectedLayeringFragrance] = useState(null);
+
+  // User Profile & Settings State
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [userTag, setUserTag] = useState('@owen_scents');
+  const [userAvatar, setUserAvatar] = useState('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80');
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const stepTitles = [
     'Climate & Location',
@@ -141,20 +150,35 @@ export default function App() {
     sillage
   };
 
+  if (!isAuthenticated) {
+    return (
+      <MobileFrame isMobileFrame={isMobileFrame}>
+        <SignInView
+          defaultTag={userTag}
+          onSignIn={(userData) => {
+            if (userData?.tag) setUserTag(userData.tag);
+            if (userData?.avatar) setUserAvatar(userData.avatar);
+            setIsAuthenticated(true);
+            setViewMode('collection');
+          }}
+        />
+      </MobileFrame>
+    );
+  }
+
   return (
     <MobileFrame isMobileFrame={isMobileFrame}>
       
-      {/* Header */}
-      <Header
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-        onOpenChat={() => setIsChatOpen(true)}
-        isMobileFrame={isMobileFrame}
-        onToggleMobileFrame={() => setIsMobileFrame(!isMobileFrame)}
+      {/* Top Bar: User Tag (Top-Left), Profile Picture (Center), Settings Icon (Right) */}
+      <TopBar
+        userTag={userTag}
+        userAvatar={userAvatar}
+        onProfileClick={() => setViewMode('collection')}
+        onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
       {/* Main Container */}
-      <main className="flex-1 p-4 sm:p-6 max-w-xl mx-auto w-full">
+      <main className="flex-1 p-4 sm:p-6 pb-40 sm:pb-48 max-w-xl mx-auto w-full">
         
         {/* VIEW 1: MY SHELF */}
         {(viewMode === 'collection' || viewMode === 'home') && (
@@ -280,6 +304,28 @@ export default function App() {
         )}
 
       </main>
+
+      {/* Floating Bottom Navigation Dock */}
+      <BottomNavbar
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+      />
+
+      {/* Settings & Profile Customization Modal */}
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        userTag={userTag}
+        setUserTag={setUserTag}
+        userAvatar={userAvatar}
+        setUserAvatar={setUserAvatar}
+        isMobileFrame={isMobileFrame}
+        onToggleMobileFrame={() => setIsMobileFrame(!isMobileFrame)}
+        onLogout={() => {
+          setIsAuthenticated(false);
+          setIsSettingsOpen(false);
+        }}
+      />
 
       {/* Modals & Drawers */}
       {selectedDetailFragrance && (

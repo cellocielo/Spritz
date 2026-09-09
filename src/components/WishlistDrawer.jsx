@@ -6,9 +6,9 @@ export default function WishlistDrawer({ wishlist, onClose, onRemoveFromWishlist
 
   const handleCopyWishlist = () => {
     if (wishlist.length === 0) return;
-    const text = "✨ My ScentMatch Fragrance Wishlist:\n\n" + 
+    const text = "✨ My Spritz Fragrance Wishlist:\n\n" + 
       wishlist.map(item => `• ${item.name} by ${item.brand} (${item.estimatedPrice})`).join("\n") +
-      "\n\nCurated with ScentMatch";
+      "\n\nCurated with Spritz Fragrance Engine";
     
     navigator.clipboard.writeText(text);
     setCopied(true);

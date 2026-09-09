@@ -38,7 +38,7 @@ export const MOCK_FRIENDS = [
     name: "Elena Rostova",
     handle: "@elena_perfumes",
     avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80",
-    bio: "Haute floral aldehydes & sweet caramel vanilla addict 🍨🌹",
+    bio: "Fine floral aldehydes & sweet caramel vanilla addict 🍨🌹",
     topSignature: "Baccarat Rouge 540",
     location: "London, UK",
     rankedShelf: [
