@@ -1,6 +1,6 @@
 {
   "name": "Spritz",
-  "description": "Fragrance recommendation engine, collector network, scent visualizer, and layering guide.",
+  "description": "Fragrance recommendation engine, scent visualizer, and layering guide.",
   "requestFramePermissions": ["camera"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

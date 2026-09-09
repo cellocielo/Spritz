@@ -82,7 +82,7 @@ export function BlindFragranceCard({ fragrance, isBlindMode, onSelectDetail, isW
             <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-rose-500' : ''}`} />
           </button>
         </div>
-        <p className="text-xs text-stone-700 italic font-serif">"{vibeCheck}"</p>
+        <p className="text-xs text-stone-700 font-sans leading-relaxed">{vibeCheck}</p>
         <div className="flex items-center justify-between pt-2 border-t border-stone-200">
           <span className="text-xs text-stone-500 font-medium">{collectorsCount} Collectors</span>
           <button onClick={() => onSelectDetail(fragrance)} className="px-3 py-1.5 rounded-xl bg-stone-900 text-white font-bold text-xs">
@@ -136,13 +136,13 @@ export function BlindFragranceCard({ fragrance, isBlindMode, onSelectDetail, isW
         </div>
       </div>
 
-      {/* Sensory Vibe Note */}
+      {/* Scent Mood Note */}
       <div className="p-3.5 rounded-2xl bg-[#faf9f6] border border-stone-200 space-y-0.5">
-        <span className="text-[10px] font-serif italic text-stone-900 block font-bold">
-          "Blind Mood Profile"
+        <span className="text-[10px] font-sans uppercase tracking-wider text-stone-500 block font-bold">
+          Scent Profile
         </span>
-        <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
-          "{vibeCheck}"
+        <p className="text-xs text-stone-700 font-sans leading-relaxed">
+          {vibeCheck}
         </p>
       </div>
 

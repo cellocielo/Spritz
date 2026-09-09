@@ -605,7 +605,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                 {/* Vibe Quote */}
                 {overlayBottleData.bottle.vibeCheck && (
                   <div className="bg-stone-50/90 p-2.5 rounded-xl border border-stone-100">
-                    <p className="text-xs italic text-stone-600 leading-relaxed">
+                    <p className="text-xs text-stone-600 leading-relaxed">
                       "{overlayBottleData.bottle.vibeCheck}"
                     </p>
                   </div>
@@ -739,7 +739,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                     ))
                   ) : (
                     <div className="h-full flex items-center justify-center">
-                      <p className="text-[11px] text-stone-400 italic">No shelf bottles</p>
+                      <p className="text-[11px] text-stone-400">No shelf bottles</p>
                     </div>
                   )}
                 </div>
@@ -784,7 +784,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-stone-400 italic text-center py-4">No bottles in this category.</p>
+                <p className="text-sm text-stone-400 text-center py-4">No bottles in this category.</p>
               )}
             </div>
           </div>

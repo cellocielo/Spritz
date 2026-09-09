@@ -111,7 +111,7 @@ export default function StepCollection({ ownedFragrances, setOwnedFragrances, on
           <p className="text-[11px] text-stone-600 tracking-wide uppercase font-bold">
             Browse Popular Classics To Quickly Add:
           </p>
-          <span className="text-[10px] text-stone-500 font-semibold italic">Scroll horizontal ➔</span>
+          <span className="text-[10px] text-stone-500 font-semibold">Scroll horizontal ➔</span>
         </div>
 
         <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
@@ -143,8 +143,8 @@ export default function StepCollection({ ownedFragrances, setOwnedFragrances, on
                   <p className={`text-[10px] uppercase tracking-widest ${isAdded ? 'text-stone-300' : 'text-stone-500'}`}>
                     {frag.brand}
                   </p>
-                  <p className={`text-[10px] italic font-serif line-clamp-2 pt-1 ${isAdded ? 'text-stone-300' : 'text-stone-600'}`}>
-                    "{frag.vibeCheck}"
+                  <p className={`text-[10px] font-sans line-clamp-2 pt-1 ${isAdded ? 'text-stone-300' : 'text-stone-600'}`}>
+                    {frag.vibeCheck}
                   </p>
                 </div>
 

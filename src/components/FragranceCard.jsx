@@ -37,9 +37,20 @@ export default function FragranceCard({
           <span className="text-[11px] px-2.5 py-1 rounded-full border bg-amber-50 text-amber-900 border-amber-200 font-bold shadow-2xs">
             {collectorsCount.toLocaleString()} Collectors
           </span>
-          <span className="text-[10px] uppercase tracking-wider font-sans text-stone-600 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200 font-bold">
+          <span className={`text-[10px] uppercase tracking-wider font-sans px-2 py-0.5 rounded-md border font-bold ${
+            category === 'Dupe' 
+              ? 'text-amber-800 bg-amber-100/90 border-amber-300' 
+              : category === 'Designer' 
+                ? 'text-blue-900 bg-blue-50 border-blue-200' 
+                : 'text-stone-600 bg-stone-100 border-stone-200'
+          }`}>
             {category}
           </span>
+          {fragrance.dupeOf && (
+            <span className="text-[10px] font-sans text-amber-900 bg-amber-50/90 px-2 py-0.5 rounded-md border border-amber-200 font-semibold truncate max-w-[170px]">
+              Dupe of {fragrance.dupeOf}
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-1.5">
@@ -103,14 +114,14 @@ export default function FragranceCard({
 
       </div>
 
-      {/* Vibe Check Description */}
+      {/* Scent Profile Description */}
       {vibeCheck && (
         <div className="mb-3.5 p-3 rounded-2xl bg-[#faf9f6] border border-stone-200 space-y-0.5">
-          <span className="text-[10px] font-serif italic text-stone-900 block font-bold">
-            "The Vibe Check"
+          <span className="text-[10px] font-sans uppercase tracking-wider text-stone-500 block font-bold">
+            Scent Profile
           </span>
-          <p className="text-xs text-stone-700 leading-relaxed italic font-serif line-clamp-2">
-            "{vibeCheck}"
+          <p className="text-xs text-stone-700 leading-relaxed font-sans line-clamp-2">
+            {vibeCheck}
           </p>
         </div>
       )}

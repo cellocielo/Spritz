@@ -280,11 +280,6 @@ export default function SettingsModal({
             </div>
           </div>
 
-          {/* App Info */}
-          <div className="text-center pt-1 text-[11px] text-stone-400">
-            Spritz — Fragrance & Collector Network
-          </div>
-
           {/* Submit Button */}
           <button
             type="submit"

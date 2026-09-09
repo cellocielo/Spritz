@@ -456,7 +456,7 @@ export default function BottleClipart({ fragrance, size = "md", className = "" }
               <path d="M 61,72 C 67,76 67,84 61,88" stroke="#be185d" strokeWidth="1" fill="none" opacity="0.6" />
 
               {/* Glossier You Text */}
-              <text x="44" y="68" textAnchor="middle" fill="#831843" fontSize="6.5" fontWeight="800" fontFamily="sans-serif" fontStyle="italic">Glossier</text>
+              <text x="44" y="68" textAnchor="middle" fill="#831843" fontSize="6.5" fontWeight="800" fontFamily="sans-serif">Glossier</text>
               <text x="44" y="78" textAnchor="middle" fill="#9d174d" fontSize="6" fontWeight="700" fontFamily="sans-serif">you</text>
 
               {/* Specular Highlight */}

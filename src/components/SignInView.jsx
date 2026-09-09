@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, ShieldCheck, UserCheck, Lock, Mail } from 'lucide-react';
-import { SpritzIcon } from './SpritzLogo';
+import SpritzLogo from './SpritzLogo';
 
 export default function SignInView({ onSignIn, defaultTag = '@owen_scents' }) {
   const [email, setEmail] = useState('owen.collector@spritz.io');
@@ -42,16 +42,11 @@ export default function SignInView({ onSignIn, defaultTag = '@owen_scents' }) {
         {/* Subtle decorative top glow */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 via-stone-800 to-amber-600" />
 
-        {/* Brand Lockup */}
-        <div className="text-center mb-6 pt-1">
-          <div className="flex items-center justify-center mb-2">
-            <SpritzIcon className="w-16 h-16 text-orange-500 hover:scale-105 transition-transform drop-shadow-xs" />
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 tracking-tight">
-            Spritz
-          </h1>
-          <p className="text-xs text-stone-600 mt-2 max-w-xs mx-auto leading-relaxed">
-            Sign in to access your curated scent shelf, olfactory map, and collector network.
+        {/* Brand Lockup - Clean S-bottle icon only (no text) */}
+        <div className="text-center mb-6 pt-1 flex flex-col items-center justify-center">
+          <SpritzLogo size="lg" showWordmark={false} className="mb-2" />
+          <p className="text-xs text-stone-600 mt-1 max-w-xs mx-auto leading-relaxed">
+            Sign in to access your curated scent shelf, olfactory map, and collection.
           </p>
         </div>
 

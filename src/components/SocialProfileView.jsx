@@ -86,7 +86,7 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
                     <h5 className="font-serif font-bold text-sm text-stone-900 truncate">{act.fragranceName}</h5>
                     <p className="text-[10px] text-stone-500 uppercase">{act.brand}</p>
                     {act.review && (
-                      <p className="text-xs text-stone-700 italic font-serif mt-1">"{act.review}"</p>
+                      <p className="text-xs text-stone-700 font-serif mt-1">"{act.review}"</p>
                     )}
                   </div>
 
@@ -177,7 +177,7 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
                   <div className="space-y-0.5">
                     <span className="text-[10px] font-bold text-stone-500 uppercase">#{item.rank} • {item.brand}</span>
                     <h5 className="font-serif font-bold text-xs text-stone-900">{item.name}</h5>
-                    <p className="text-[11px] text-stone-600 italic">"{item.review}"</p>
+                    <p className="text-[11px] text-stone-600">"{item.review}"</p>
                   </div>
                   <span className="font-mono font-bold text-xs bg-white px-2 py-1 rounded-lg border border-stone-200">★ {item.rating}</span>
                 </div>

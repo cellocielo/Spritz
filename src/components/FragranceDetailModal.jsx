@@ -82,14 +82,31 @@ export default function FragranceDetailModal({
             </p>
           </div>
 
-          {/* Vibe Check Banner */}
+          {/* Dupe / Alternative Callout */}
+          {fragrance.dupeOf && (
+            <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 flex items-center justify-between gap-3">
+              <div>
+                <span className="text-[10px] font-sans uppercase tracking-wider text-amber-800 font-bold block">
+                  Dupe / Value Alternative
+                </span>
+                <p className="text-xs font-semibold text-amber-950">
+                  Formulated to match {fragrance.dupeOf}
+                </p>
+              </div>
+              <span className="text-[11px] px-2.5 py-1 rounded-full bg-white text-amber-900 border border-amber-300 font-bold shadow-2xs shrink-0">
+                Budget Alternative
+              </span>
+            </div>
+          )}
+
+          {/* Scent Profile Banner */}
           {vibeCheck && (
             <div className="p-4 rounded-2xl bg-[#faf9f6] border border-stone-200 space-y-1">
-              <span className="text-[11px] font-serif italic text-stone-900 block font-bold">
-                Sensory Vibe Check
+              <span className="text-[10px] font-sans uppercase tracking-wider text-stone-500 block font-bold">
+                Scent Profile
               </span>
-              <p className="text-xs text-stone-700 leading-relaxed italic font-serif">
-                "{vibeCheck}"
+              <p className="text-xs text-stone-700 leading-relaxed font-sans">
+                {vibeCheck}
               </p>
             </div>
           )}

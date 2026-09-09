@@ -4,6 +4,7 @@
   :root {
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-brand: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
   body {
@@ -15,6 +16,10 @@
 
   h1, h2, h3, .font-serif-luxury {
     font-family: var(--font-serif);
+  }
+
+  .font-brand {
+    font-family: var(--font-brand);
   }
 }
 

@@ -37,6 +37,8 @@ export default function BrowseFeed({
     displayedFragrances = fullDatabase.filter(f => f.category?.toLowerCase().includes('niche'));
   } else if (filterCategory === 'designer') {
     displayedFragrances = fullDatabase.filter(f => f.category?.toLowerCase() === 'designer');
+  } else if (filterCategory === 'dupe') {
+    displayedFragrances = fullDatabase.filter(f => f.category?.toLowerCase() === 'dupe');
   }
 
   if (searchQuery.trim()) {
@@ -101,17 +103,6 @@ export default function BrowseFeed({
         </button>
 
         <button
-          onClick={() => setFilterCategory('niche')}
-          className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
-            filterCategory === 'niche' 
-              ? 'bg-stone-900 text-white border-stone-900 shadow-xs' 
-              : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
-          }`}
-        >
-          💎 Niche
-        </button>
-
-        <button
           onClick={() => setFilterCategory('designer')}
           className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
             filterCategory === 'designer' 
@@ -119,7 +110,29 @@ export default function BrowseFeed({
               : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
           }`}
         >
-          ✨ Designer
+          ✨ Designer ({fullDatabase.filter(f => f.category?.toLowerCase() === 'designer').length})
+        </button>
+
+        <button
+          onClick={() => setFilterCategory('dupe')}
+          className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
+            filterCategory === 'dupe' 
+              ? 'bg-amber-900 text-white border-amber-950 shadow-xs' 
+              : 'bg-white border-stone-200 text-amber-900 hover:border-amber-300'
+          }`}
+        >
+          🏷️ Dupes & Clones ({fullDatabase.filter(f => f.category?.toLowerCase() === 'dupe').length})
+        </button>
+
+        <button
+          onClick={() => setFilterCategory('niche')}
+          className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
+            filterCategory === 'niche' 
+              ? 'bg-stone-900 text-white border-stone-900 shadow-xs' 
+              : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
+          }`}
+        >
+          💎 Niche ({fullDatabase.filter(f => f.category?.toLowerCase().includes('niche')).length})
         </button>
       </div>
 

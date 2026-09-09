@@ -84,7 +84,7 @@ export default function LayeringGuideModal({ recommendedFragrance, ownedFragranc
             <span className="font-bold text-[#1c1917] flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5 text-[#1c1917]" /> Resulting Custom Scent Profile:
             </span>
-            <p className="text-stone-800 italic font-serif leading-relaxed">
+            <p className="text-stone-800 font-serif leading-relaxed">
               "{recipe.resultingVibe}"
             </p>
           </div>
