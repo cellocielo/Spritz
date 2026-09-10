@@ -127,7 +127,7 @@ export default function SettingsModal({
                   className="relative group cursor-pointer shrink-0"
                   title="Click to take a photo or upload an image"
                 >
-                  <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-stone-300 to-stone-400 ring-2 ring-stone-200 shadow-xs group-hover:ring-stone-900 transition-all overflow-hidden">
+                  <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full p-0.5 bg-gradient-to-tr from-orange-500 via-amber-400 to-stone-200 ring-2 ring-orange-200/90 shadow-xs group-hover:ring-orange-500 transition-all overflow-hidden">
                     <img
                       src={userAvatar}
                       alt="Current Avatar"
@@ -139,7 +139,7 @@ export default function SettingsModal({
                     <Camera className="w-5 h-5 text-white" />
                   </div>
                   {/* Camera Icon Pill Badge */}
-                  <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full bg-stone-900 text-white flex items-center justify-center shadow-md ring-2 ring-white group-hover:bg-amber-600 transition-colors">
+                  <div className="absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full bg-stone-900 text-white flex items-center justify-center shadow-md ring-2 ring-white group-hover:bg-orange-600 transition-colors">
                     <Camera className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -240,7 +240,7 @@ export default function SettingsModal({
                 type="button"
                 onClick={onToggleMobileFrame}
                 className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${
-                  isMobileFrame ? 'bg-stone-900' : 'bg-stone-300'
+                  isMobileFrame ? 'bg-gradient-to-r from-amber-500 to-orange-500' : 'bg-stone-300'
                 }`}
               >
                 <div

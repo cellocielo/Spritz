@@ -72,12 +72,12 @@ export default function FragranceDetailModal({
         <div className="p-6 space-y-5">
 
           {/* Collector Rarity Box */}
-          <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-1">
-            <div className="flex items-center gap-1.5 text-amber-900 text-xs font-bold">
-              <Crown className="w-4 h-4 text-amber-600" />
+          <div className="p-4 rounded-2xl bg-orange-50/70 border border-orange-200/90 space-y-1">
+            <div className="flex items-center gap-1.5 text-orange-950 text-xs font-bold">
+              <Crown className="w-4 h-4 text-orange-600" />
               <span>Collector Rarity & Ownership</span>
             </div>
-            <p className="text-xs text-amber-950 font-medium leading-relaxed">
+            <p className="text-xs text-orange-950 font-medium leading-relaxed">
               {rarity.description}
             </p>
           </div>

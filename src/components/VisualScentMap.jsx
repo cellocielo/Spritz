@@ -267,8 +267,8 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
       .filter(v => v.percent > 0)
       .sort((a, b) => b.percent - a.percent);
 
-    // Primary accent color (defaults to emerald #10B981 or warm amber #F59E0B or bottle accent)
-    const accentColor = bottle.accentColor || (bottle.category === 'Luxury' ? '#F59E0B' : '#10B981');
+    // Primary accent color (defaults to brand orange #ff5500 or bottle accent)
+    const accentColor = bottle.accentColor || (bottle.category === 'Luxury' ? '#f59e0b' : '#ff5500');
 
     return {
       bottle,
@@ -278,6 +278,26 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
       sortedAccords
     };
   }, [selectedBottleId, displayShelf, CENTER, R_MAX]);
+
+  // For the collection grid: assign each fragrance strictly to its single most prominent note category
+  const bottleToPrimaryCategory = useMemo(() => {
+    const map = new Map();
+    baselineCollection.forEach(bottle => {
+      const weights = calculateFragranceAccordWeights(bottle);
+      let bestCat = EIGHT_RADAR_CATEGORIES[0].id;
+      let highestScore = -1;
+
+      EIGHT_RADAR_CATEGORIES.forEach(cat => {
+        const score = weights[cat.id] || 0;
+        if (score > highestScore) {
+          highestScore = score;
+          bestCat = cat.id;
+        }
+      });
+      map.set(bottle.id, bestCat);
+    });
+    return map;
+  }, [baselineCollection]);
 
   const handleToggleSelectBottle = (bottleId) => {
     if (selectedBottleId === bottleId) {
@@ -339,7 +359,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                   <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-800 border border-stone-200 flex items-center gap-1.5 shadow-2xs">
                     <span 
                       className="w-2 h-2 rounded-full" 
-                      style={{ backgroundColor: overlayBottleData?.accentColor || '#10b981' }}
+                      style={{ backgroundColor: overlayBottleData?.accentColor || '#ff5500' }}
                     ></span>
                     Overlaying: <span className="font-bold">{overlayBottleData?.bottle.name}</span>
                   </span>
@@ -367,8 +387,8 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                 <defs>
                   {/* Dynamic Gradient for Selected Highlight Polygon */}
                   <linearGradient id="selectedPolygonGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor={overlayBottleData?.accentColor || '#10b981'} stopOpacity="0.70" />
-                    <stop offset="100%" stopColor={overlayBottleData?.accentColor || '#059669'} stopOpacity="0.45" />
+                    <stop offset="0%" stopColor={overlayBottleData?.accentColor || '#ff5500'} stopOpacity="0.70" />
+                    <stop offset="100%" stopColor={overlayBottleData?.accentColor || '#ea580c'} stopOpacity="0.45" />
                   </linearGradient>
 
                   {/* Neutral Slate/Indigo Gradient for Global Shelf Footprint */}
@@ -418,7 +438,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                         y1={CENTER}
                         x2={x2}
                         y2={y2}
-                        stroke={isCatHighlighted ? (overlayBottleData?.accentColor || "#10b981") : "#e7e5e4"}
+                        stroke={isCatHighlighted ? (overlayBottleData?.accentColor || "#ff5500") : "#e7e5e4"}
                         strokeWidth={isCatHighlighted ? "1.8" : "1"}
                         className="transition-colors duration-200"
                       />
@@ -429,7 +449,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                         alignmentBaseline="middle"
                         fontSize={isCatHighlighted ? "12" : "11"}
                         fontWeight={isCatHighlighted ? "800" : "600"}
-                        fill={isCatHighlighted ? (overlayBottleData?.accentColor || "#0f172a") : "#44403c"}
+                        fill={isCatHighlighted ? (overlayBottleData?.accentColor || "#ea580c") : "#44403c"}
                         className="font-sans select-none tracking-wide transition-all duration-200"
                       >
                         {cat.name}
@@ -457,7 +477,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                     points={overlayBottleData.pointsString}
                     fill="url(#selectedPolygonGrad)"
                     fillOpacity={0.60}
-                    stroke={overlayBottleData.accentColor || "#10b981"}
+                    stroke={overlayBottleData.accentColor || "#ff5500"}
                     strokeWidth="2"
                     strokeLinejoin="round"
                     className="transition-all duration-300 ease-out animate-fadeIn"
@@ -467,7 +487,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                 {/* 3. CLICKABLE AXIS NODE DOTS (Rendered ONLY in Active Selection State) */}
                 {overlayBottleData && overlayBottleData.vertices.map((v, i) => {
                   const isNodeHighlighted = activeCategoryHighlight === v.cat.id;
-                  const nodeColor = overlayBottleData.accentColor || '#10b981';
+                  const nodeColor = overlayBottleData.accentColor || '#ff5500';
 
                   return (
                     <g 
@@ -573,7 +593,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                           onClick={() => setActiveCategoryHighlight(isHighlighted ? null : accord.cat.id)}
                           className={`p-2 rounded-xl border transition-all cursor-pointer flex flex-col justify-between gap-1.5 ${
                             isHighlighted 
-                              ? 'bg-stone-900 text-white border-stone-900 ring-1 ring-stone-900' 
+                              ? 'bg-stone-950 text-white border-orange-500 ring-1 ring-orange-500 shadow-xs' 
                               : 'bg-stone-50/80 border-stone-200/80 hover:bg-stone-100'
                           }`}
                         >
@@ -581,7 +601,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                             <span className={`text-xs font-medium truncate ${isHighlighted ? 'text-white font-bold' : 'text-stone-800'}`}>
                               {accord.cat.name}
                             </span>
-                            <span className={`text-[11px] font-mono font-bold ${isHighlighted ? 'text-teal-300' : 'text-stone-600'}`}>
+                            <span className={`text-[11px] font-mono font-bold ${isHighlighted ? 'text-orange-400' : 'text-stone-600'}`}>
                               {accord.percent}%
                             </span>
                           </div>
@@ -592,7 +612,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                               className="h-full rounded-full transition-all duration-300"
                               style={{ 
                                 width: `${Math.min(100, Math.max(10, accord.percent))}%`,
-                                backgroundColor: isHighlighted ? '#2dd4bf' : (overlayBottleData.accentColor || '#10b981')
+                                backgroundColor: isHighlighted ? '#ff5500' : (overlayBottleData.accentColor || '#ff5500')
                               }}
                             />
                           </div>
@@ -624,7 +644,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                 Select Bottle to Overlay
               </h2>
               {selectedBottleId && (
-                <span className="text-[11px] text-teal-700 font-medium">
+                <span className="text-[11px] text-orange-600 font-semibold">
                   1 selected
                 </span>
               )}
@@ -661,7 +681,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                     onClick={() => handleToggleSelectBottle(bottle.id)}
                     className={`rounded-2xl border p-3 flex flex-col items-center justify-between text-center transition-all cursor-pointer min-h-[160px] ${
                       isSelected
-                        ? 'bg-teal-50/70 border-teal-500 ring-2 ring-teal-500/30 shadow-xs'
+                        ? 'bg-orange-50/70 border-orange-500 ring-2 ring-orange-500/30 shadow-xs'
                         : 'bg-[#faf9f6] border-stone-200 hover:border-stone-300 hover:bg-white'
                     }`}
                   >
@@ -701,10 +721,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
         /* GRID VIEW (8 Olfactory Category Cards) */
         <div className="grid grid-cols-2 gap-3">
           {EIGHT_RADAR_CATEGORIES.map(cat => {
-            const bottlesInCat = baselineCollection.filter(b => {
-              const weights = calculateFragranceAccordWeights(b);
-              return (weights[cat.id] || 0) > 0.15;
-            });
+            const bottlesInCat = baselineCollection.filter(b => bottleToPrimaryCategory.get(b.id) === cat.id);
 
             return (
               <div 

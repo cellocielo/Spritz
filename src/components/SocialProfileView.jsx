@@ -27,8 +27,8 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
           }}
           className={`px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap text-[11px] sm:text-xs font-bold ${
             activeSubTab === 'feed'
-              ? 'bg-black text-white shadow-xs'
-              : 'text-stone-700 hover:text-stone-900'
+              ? 'bg-stone-900 text-white shadow-xs ring-1 ring-orange-500/30'
+              : 'text-stone-700 hover:text-orange-950'
           }`}
         >
           Activity
@@ -37,8 +37,8 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
           onClick={() => setActiveSubTab('friends')}
           className={`px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap text-[11px] sm:text-xs font-bold ${
             activeSubTab === 'friends'
-              ? 'bg-black text-white shadow-xs'
-              : 'text-stone-700 hover:text-stone-900'
+              ? 'bg-stone-900 text-white shadow-xs ring-1 ring-orange-500/30'
+              : 'text-stone-700 hover:text-orange-950'
           }`}
         >
           Friends
@@ -73,10 +73,10 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
                   {/* Direct Message Icon Next to Friend Item */}
                   <button
                     onClick={() => onOpenChat(friendObj.id)}
-                    className="p-2 rounded-xl bg-[#faf9f6] border border-stone-200 text-stone-700 hover:text-stone-900 hover:border-stone-400 transition-all flex items-center gap-1 font-bold text-[11px]"
+                    className="p-2 rounded-xl bg-[#faf9f6] border border-stone-200 text-stone-700 hover:text-orange-950 hover:border-orange-300 hover:bg-orange-50/50 transition-all flex items-center gap-1 font-bold text-[11px]"
                     title={`Message ${act.friendName.split(' ')[0]}`}
                   >
-                    <MessageSquare className="w-3.5 h-3.5 text-amber-600" />
+                    <MessageSquare className="w-3.5 h-3.5 text-orange-600" />
                     <span>Message</span>
                   </button>
                 </div>
@@ -91,7 +91,7 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
                   </div>
 
                   {act.rating && (
-                    <div className="px-2.5 py-1 rounded-xl bg-amber-100 text-amber-950 font-bold text-xs shrink-0 border border-amber-300">
+                    <div className="px-2.5 py-1 rounded-xl bg-orange-50 text-orange-950 font-bold text-xs shrink-0 border border-orange-200/90">
                       ★ {act.rating}
                     </div>
                   )}
@@ -129,10 +129,10 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
               {/* Direct Message Icon Next to Friend Item */}
               <button
                 onClick={() => onOpenChat(friend.id)}
-                className="p-2.5 rounded-2xl bg-[#faf9f6] border border-stone-200 text-stone-800 hover:bg-stone-900 hover:text-white transition-all flex items-center gap-1.5 font-bold text-xs shrink-0 shadow-2xs"
+                className="p-2.5 rounded-2xl bg-[#faf9f6] border border-stone-200 text-stone-800 hover:border-orange-300 hover:bg-orange-50/50 hover:text-orange-950 transition-all flex items-center gap-1.5 font-bold text-xs shrink-0 shadow-2xs"
                 title={`Chat with ${friend.name.split(' ')[0]}`}
               >
-                <MessageSquare className="w-4 h-4 text-amber-600" />
+                <MessageSquare className="w-4 h-4 text-orange-600" />
                 <span>Message</span>
               </button>
             </div>
@@ -155,9 +155,9 @@ export default function SocialProfileView({ ownedFragrances = [], onSelectDetail
             <div className="flex items-center gap-2">
               <button
                 onClick={() => onOpenChat(selectedFriend.id)}
-                className="px-3.5 py-2 rounded-xl bg-stone-900 text-white font-bold text-xs flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs flex items-center gap-1.5 transition-all border border-stone-800 hover:border-orange-500/40"
               >
-                <MessageSquare className="w-4 h-4 text-amber-400" />
+                <MessageSquare className="w-4 h-4 text-orange-400" />
                 <span>Message</span>
               </button>
               <button

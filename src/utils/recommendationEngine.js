@@ -1,4 +1,4 @@
-import { FRAGRANCE_DATABASE, VIBE_SETTINGS, calculateCosineSimilarity } from '../data/fragrances';
+import { FRAGRANCE_DATABASE, calculateCosineSimilarity } from '../data/fragrances';
 
 /**
  * Calculates a personalized match score (0 to 100) based on Content-Based Cosine Similarity Vector Math & Note Pyramid.
@@ -9,8 +9,6 @@ export function generateRecommendations(preferences, limit = 3, offset = 0) {
     climate = 'all-year',
     occasion = 'daily',
     budget = '150-300',
-    prefMode = 'vibe',
-    selectedVibeSetting = 'cozy-jazz-lounge',
     rankedNotes = [],
     sillage = 'pleasant-trail'
   } = preferences;
@@ -18,9 +16,12 @@ export function generateRecommendations(preferences, limit = 3, offset = 0) {
   // Build user target accord vector from preferences
   const targetVector = { fresh: 0.5, gourmand: 0.5, woody: 0.5, floral: 0.5, resin: 0.5 };
   if (rankedNotes.includes('fresh-citrus') || rankedNotes.includes('clean-laundry')) targetVector.fresh += 0.4;
-  if (rankedNotes.includes('gourmand') || rankedNotes.includes('vanilla-amber')) targetVector.gourmand += 0.4;
-  if (rankedNotes.includes('woody') || rankedNotes.includes('smoky-incense')) targetVector.woody += 0.4;
+  if (rankedNotes.includes('sweet-gourmand')) targetVector.gourmand += 0.4;
+  if (rankedNotes.includes('woods')) targetVector.woody += 0.4;
+  if (rankedNotes.includes('green-fig')) { targetVector.fresh += 0.2; targetVector.woody += 0.2; }
   if (rankedNotes.includes('floral')) targetVector.floral += 0.4;
+  if (rankedNotes.includes('leather-spice')) { targetVector.woody += 0.2; targetVector.resin += 0.3; }
+  if (rankedNotes.includes('amber-oriental')) targetVector.resin += 0.4;
 
   const isBeginner = (ownedFragrances || []).length === 0;
 
@@ -148,11 +149,20 @@ function buildWhyItFitsExplanation(fragrance, prefs, offersNewDimension) {
   };
   parts.push(`perfect for ${climateMap[prefs.climate] || 'your climate'}`);
 
-  if (prefs.prefMode === 'vibe' && prefs.selectedVibeSetting) {
-    const vibeObj = VIBE_SETTINGS.find(v => v.id === prefs.selectedVibeSetting);
-    if (vibeObj) {
-      parts.push(`matches your "${vibeObj.title}" setting`);
-    }
+  const occasionMap = {
+    'daily': 'daily signature wear',
+    'date': 'date nights and romantic evenings',
+    'office': 'professional office settings',
+    'clubbing': 'night outs and high-energy events',
+    'fresh-gym': 'active workouts and post-gym freshness'
+  };
+  if (prefs.occasion && occasionMap[prefs.occasion]) {
+    parts.push(`tailored for ${occasionMap[prefs.occasion]}`);
+  }
+
+  if (Array.isArray(prefs.rankedNotes) && prefs.rankedNotes.length > 0) {
+    const formattedNotes = prefs.rankedNotes.slice(0, 2).map(n => n.replace('-', ' '));
+    parts.push(`features your preferred ${formattedNotes.join(' & ')} notes`);
   }
 
   return parts.join(', ') + '.';

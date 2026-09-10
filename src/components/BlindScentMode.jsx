@@ -16,7 +16,7 @@ export default function BlindScentMode({ isBlindMode, setIsBlindMode, wishlist =
       <div className="bg-white rounded-2xl sm:rounded-3xl px-4 py-3.5 sm:p-4 border border-stone-200 shadow-xs flex items-center justify-between gap-4">
         <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 mr-1">
           <div className={`p-1 flex items-center justify-center transition-colors shrink-0 ${
-            isBlindMode ? 'text-amber-600' : 'text-stone-700'
+            isBlindMode ? 'text-orange-600' : 'text-stone-700'
           }`}>
             {isBlindMode ? <EyeOff className="w-5 h-5 stroke-[1.8]" /> : <Eye className="w-5 h-5 stroke-[1.8]" />}
           </div>
@@ -34,7 +34,7 @@ export default function BlindScentMode({ isBlindMode, setIsBlindMode, wishlist =
           onClick={() => setIsBlindMode(!isBlindMode)}
           className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full font-bold text-xs transition-all border shrink-0 whitespace-nowrap ${
             isBlindMode
-              ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
+              ? 'bg-gradient-to-r from-orange-600 to-[#ff5500] text-white border-transparent shadow-xs'
               : 'bg-white text-stone-900 border-stone-300 hover:bg-stone-50 shadow-2xs'
           }`}
         >

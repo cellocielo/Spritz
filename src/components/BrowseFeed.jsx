@@ -60,10 +60,10 @@ export default function BrowseFeed({
         </h2>
         <button
           onClick={() => setIsSubmissionOpen(true)}
-          className="px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200/90 font-semibold text-xs flex items-center gap-1.5 transition-all shadow-2xs whitespace-nowrap shrink-0"
+          className="px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full bg-orange-50 hover:bg-orange-100 text-orange-950 border border-orange-200/90 font-semibold text-xs flex items-center gap-1.5 transition-all shadow-2xs whitespace-nowrap shrink-0"
           title="Submit an unlisted fragrance bottle"
         >
-          <Plus className="w-3.5 h-3.5 text-amber-700 stroke-[2.5]" />
+          <Plus className="w-3.5 h-3.5 text-orange-600 stroke-[2.5]" />
           <span>Submit Bottle</span>
         </button>
       </div>
@@ -95,8 +95,8 @@ export default function BrowseFeed({
           onClick={() => setFilterCategory('all')}
           className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
             filterCategory === 'all' 
-              ? 'bg-stone-900 text-white border-stone-900 shadow-xs' 
-              : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
+              ? 'bg-stone-900 text-white border-stone-900 shadow-xs ring-1 ring-orange-500/30' 
+              : 'bg-white border-stone-200 text-stone-700 hover:border-orange-200 hover:text-orange-950'
           }`}
         >
           All ({fullDatabase.length})
@@ -106,33 +106,33 @@ export default function BrowseFeed({
           onClick={() => setFilterCategory('designer')}
           className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
             filterCategory === 'designer' 
-              ? 'bg-stone-900 text-white border-stone-900 shadow-xs' 
-              : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
+              ? 'bg-stone-900 text-white border-stone-900 shadow-xs ring-1 ring-orange-500/30' 
+              : 'bg-white border-stone-200 text-stone-700 hover:border-orange-200 hover:text-orange-950'
           }`}
         >
-          ✨ Designer ({fullDatabase.filter(f => f.category?.toLowerCase() === 'designer').length})
+          Designer ({fullDatabase.filter(f => f.category?.toLowerCase() === 'designer').length})
         </button>
 
         <button
           onClick={() => setFilterCategory('dupe')}
           className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
             filterCategory === 'dupe' 
-              ? 'bg-amber-900 text-white border-amber-950 shadow-xs' 
-              : 'bg-white border-stone-200 text-amber-900 hover:border-amber-300'
+              ? 'bg-gradient-to-r from-amber-700 to-orange-700 text-white border-orange-800 shadow-xs ring-1 ring-orange-500/30' 
+              : 'bg-white border-stone-200 text-orange-950 hover:border-orange-300'
           }`}
         >
-          🏷️ Dupes & Clones ({fullDatabase.filter(f => f.category?.toLowerCase() === 'dupe').length})
+          Dupes & Clones ({fullDatabase.filter(f => f.category?.toLowerCase() === 'dupe').length})
         </button>
 
         <button
           onClick={() => setFilterCategory('niche')}
           className={`px-3.5 py-2 rounded-xl border shrink-0 transition-all ${
             filterCategory === 'niche' 
-              ? 'bg-stone-900 text-white border-stone-900 shadow-xs' 
-              : 'bg-white border-stone-200 text-stone-700 hover:border-stone-300'
+              ? 'bg-stone-900 text-white border-stone-900 shadow-xs ring-1 ring-orange-500/30' 
+              : 'bg-white border-stone-200 text-stone-700 hover:border-orange-200 hover:text-orange-950'
           }`}
         >
-          💎 Niche ({fullDatabase.filter(f => f.category?.toLowerCase().includes('niche')).length})
+          Niche ({fullDatabase.filter(f => f.category?.toLowerCase().includes('niche')).length})
         </button>
       </div>
 

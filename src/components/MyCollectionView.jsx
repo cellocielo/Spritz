@@ -50,9 +50,9 @@ export default function MyCollectionView({
           
           <button
             onClick={onGoToAdd}
-            className="px-3.5 py-2 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 transition-transform active:scale-95"
+            className="px-3.5 py-2 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white hover:text-orange-200 font-bold text-xs shadow-sm flex items-center gap-1.5 transition-transform active:scale-95 border border-stone-800 hover:border-orange-500/40"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-orange-400" />
             <span>Add</span>
           </button>
         </div>
@@ -77,11 +77,11 @@ export default function MyCollectionView({
             onClick={() => setActiveTab('owned')}
             className={`flex-1 py-2 rounded-xl font-bold transition-all flex items-center justify-center gap-1.5 ${
               activeTab === 'owned'
-                ? 'bg-white text-stone-900 shadow-xs border border-stone-200'
+                ? 'bg-white text-stone-900 shadow-xs border border-orange-200/90'
                 : 'text-stone-600 hover:text-stone-900'
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
+            <Layers className={`w-3.5 h-3.5 ${activeTab === 'owned' ? 'text-orange-600' : ''}`} />
             <span>Owned ({displayOwned.length})</span>
           </button>
           
@@ -134,7 +134,7 @@ export default function MyCollectionView({
                   <div className="flex items-center gap-2 pt-0.5 text-xs text-stone-600 font-medium">
                     <span>{frag.estimatedPrice}</span>
                     <span>•</span>
-                    <span className="font-bold text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 text-[10px]">
+                    <span className="font-bold text-orange-950 bg-orange-50/90 px-2 py-0.5 rounded border border-orange-200 text-[10px]">
                       {(frag.collectorsCount || 1).toLocaleString()} Collectors
                     </span>
                   </div>
@@ -144,7 +144,7 @@ export default function MyCollectionView({
                 <div className="flex flex-col items-center justify-center gap-2 shrink-0 w-12">
                   <button
                     onClick={() => onSelectDetail(frag)}
-                    className="w-full py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs transition-colors text-center"
+                    className="w-full py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white hover:text-orange-300 font-bold text-xs transition-colors text-center"
                   >
                     View
                   </button>

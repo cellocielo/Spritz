@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Sparkles, Compass, Search, Heart, Users, ArrowRight, Plus, Star, MapPin, Check } from 'lucide-react';
-import { FRAGRANCE_DATABASE, VIBE_SETTINGS } from '../data/fragrances';
+import { Sparkles, Compass, Search, Heart, Users, ArrowRight, Plus, Star, Briefcase, Wine, Flame } from 'lucide-react';
+import { FRAGRANCE_DATABASE } from '../data/fragrances';
 import { MOCK_ACTIVITY_FEED } from '../data/friendsData';
 import BottleVisualizer from './BottleVisualizer';
 
@@ -11,14 +11,20 @@ export default function HomeView({
   onOpenWishlist, 
   wishlist,
   onToggleWishlist,
-  onSelectDetail,
-  selectedVibeSetting,
-  setSelectedVibeSetting
+  onSelectDetail
 }) {
   // Mini Quick Rank input on home page
   const [quickFragName, setQuickFragName] = useState('');
   const [quickRating, setQuickRating] = useState('9.5');
   const [quickRankedNotice, setQuickRankedNotice] = useState(false);
+  const [selectedOccasion, setSelectedOccasion] = useState('daily');
+
+  const quickOccasions = [
+    { id: 'daily', title: 'Daily Signature', icon: '✨', subtitle: 'Versatile & effortless' },
+    { id: 'date', title: 'Date Night', icon: '🍷', subtitle: 'Warm vanilla & amber' },
+    { id: 'office', title: 'Professional', icon: '💼', subtitle: 'Crisp iris & cedar' },
+    { id: 'clubbing', title: 'Night Out', icon: '🔥', subtitle: 'Bold & magnetic' }
+  ];
 
   const handleQuickRankSubmit = (e) => {
     e.preventDefault();
@@ -37,8 +43,8 @@ export default function HomeView({
       
       {/* Hero Header */}
       <div className="text-center space-y-2 pt-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f4f0ea] border border-stone-300 text-[#1c1917] text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 border border-orange-200/80 text-orange-950 text-xs font-semibold">
+          <Sparkles className="w-3.5 h-3.5 text-orange-500" />
           Personal Fragrance Curator
         </div>
         
@@ -54,42 +60,42 @@ export default function HomeView({
       <div className="glass-card rounded-3xl p-5 border border-stone-200 bg-[#f4f0ea] space-y-4 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-[#1c1917] text-white flex items-center justify-center">
-              <Search className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-xl bg-stone-900 text-orange-400 border border-orange-500/20 flex items-center justify-center shadow-2xs">
+              <Search className="w-4 h-4 text-orange-400" />
             </div>
             <div>
               <h3 className="font-serif font-bold text-lg text-[#1c1917]">
                 Quick Scent Matcher
               </h3>
-              <p className="text-xs text-stone-600">Select a vibe to start your personalized recommendation match</p>
+              <p className="text-xs text-stone-600">Select an occasion to start your personalized recommendation match</p>
             </div>
           </div>
           <button 
             onClick={onStartQuiz}
-            className="text-xs font-bold text-[#1c1917] hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-orange-600 hover:text-orange-700 hover:underline flex items-center gap-1"
           >
             Full Matcher →
           </button>
         </div>
 
-        {/* Mini Vibe Selector Pills */}
+        {/* Mini Occasion Selector Pills */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {VIBE_SETTINGS.slice(0, 4).map((vibe) => {
-            const isSelected = selectedVibeSetting === vibe.id;
+          {quickOccasions.map((occ) => {
+            const isSelected = selectedOccasion === occ.id;
             return (
               <div
-                key={vibe.id}
-                onClick={() => setSelectedVibeSetting(vibe.id)}
+                key={occ.id}
+                onClick={() => setSelectedOccasion(occ.id)}
                 className={`p-2.5 rounded-2xl cursor-pointer border text-left transition-all ${
                   isSelected
-                    ? 'bg-[#1c1917] text-white border-[#1c1917] shadow-xs'
-                    : 'bg-white text-[#1c1917] border-stone-200 hover:border-stone-400'
+                    ? 'bg-[#1c1917] text-white border-orange-500/80 shadow-xs ring-1 ring-orange-500/30'
+                    : 'bg-white text-[#1c1917] border-stone-200 hover:border-orange-300/70 hover:bg-orange-50/20'
                 }`}
               >
-                <span className="text-lg block mb-0.5">{vibe.icon}</span>
-                <h4 className="font-serif font-bold text-xs line-clamp-1">{vibe.title}</h4>
-                <p className={`text-[10px] line-clamp-1 ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
-                  {vibe.subtitle}
+                <span className="text-lg block mb-0.5">{occ.icon}</span>
+                <h4 className="font-serif font-bold text-xs line-clamp-1">{occ.title}</h4>
+                <p className={`text-[10px] line-clamp-1 ${isSelected ? 'text-orange-200' : 'text-stone-500'}`}>
+                  {occ.subtitle}
                 </p>
               </div>
             );
@@ -98,10 +104,10 @@ export default function HomeView({
 
         <button
           onClick={onStartQuiz}
-          className="w-full py-3.5 rounded-2xl bg-[#1c1917] hover:bg-stone-800 text-white font-bold text-xs shadow-md flex items-center justify-center gap-2 transition-all"
+          className="w-full py-3.5 rounded-2xl bg-[#1c1917] hover:bg-stone-800 text-white font-bold text-xs shadow-md flex items-center justify-center gap-2 transition-all group border border-stone-800 hover:border-orange-500/40"
         >
           <span>Run Full Scent Matcher Quiz</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 text-orange-400 group-hover:translate-x-0.5 transition-transform" />
         </button>
       </div>
 

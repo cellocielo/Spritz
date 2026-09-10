@@ -34,7 +34,7 @@ export default function FragranceCard({
       {/* Top Header Row: Collector Count & Wishlist */}
       <div className="flex items-center justify-between gap-2 mb-3 relative z-10">
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="text-[11px] px-2.5 py-1 rounded-full border bg-amber-50 text-amber-900 border-amber-200 font-bold shadow-2xs">
+          <span className="text-[11px] px-2.5 py-1 rounded-full border bg-orange-50/90 text-orange-950 border-orange-200/90 font-bold shadow-2xs">
             {collectorsCount.toLocaleString()} Collectors
           </span>
           <span className={`text-[10px] uppercase tracking-wider font-sans px-2 py-0.5 rounded-md border font-bold ${
@@ -55,7 +55,7 @@ export default function FragranceCard({
 
         <div className="flex items-center gap-1.5">
           {matchPercentage && (
-            <div className="px-2.5 py-1 rounded-full bg-amber-500 text-stone-950 text-xs font-mono font-bold shadow-2xs">
+            <div className="px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-stone-950 text-xs font-mono font-bold shadow-2xs">
               {matchPercentage}% Match
             </div>
           )}
@@ -151,10 +151,10 @@ export default function FragranceCard({
       <div className="pt-3 flex items-center gap-2 border-t border-stone-200">
         <button
           onClick={() => onSelectDetail(fragrance)}
-          className="flex-1 py-2.5 px-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold flex items-center justify-center gap-1 transition-all shadow-xs"
+          className="flex-1 py-2.5 px-3 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold flex items-center justify-center gap-1 transition-all shadow-xs group"
         >
           <span>View Details</span>
-          <ChevronRight className="w-3.5 h-3.5" />
+          <ChevronRight className="w-3.5 h-3.5 text-orange-400 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
         {onToggleOwned && (

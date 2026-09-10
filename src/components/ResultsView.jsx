@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Sparkles, RefreshCw, Layers, Compass, Home, Heart, CheckCircle2, ArrowRight } from 'lucide-react';
+import { RefreshCw, Layers, Compass, Home, Heart, CheckCircle2, ArrowRight } from 'lucide-react';
 import FragranceCard from './FragranceCard';
 import ScentProfileVisualizer from './ScentProfileVisualizer';
 import { generateRecommendations } from '../utils/recommendationEngine';
@@ -47,10 +47,6 @@ export default function ResultsView({
       
       {/* Header Announcement */}
       <div className="text-center space-y-2 pt-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-950 text-xs font-bold">
-          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-          Boutique Scent Match Complete
-        </div>
         <h2 className="text-4xl font-serif text-stone-900 font-bold tracking-tight">
           Your Fragrance Matches
         </h2>

@@ -29,7 +29,17 @@ export default function App() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isMobileFrame, setIsMobileFrame] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [activeChatFriendId, setActiveChatFriendId] = useState('user-1');
   const [customSubmissions, setCustomSubmissions] = useState([]);
+
+  const handleOpenChat = (friendId) => {
+    setActiveChatFriendId(friendId || 'user-1');
+    setIsChatOpen(true);
+  };
+
+  const handleCloseChat = () => {
+    setIsChatOpen(false);
+  };
 
   // User Collection & Questionnaire State
   const [ownedFragrances, setOwnedFragrances] = useState(['Bleu de Chanel EDP', 'Santal 33']);
@@ -37,9 +47,7 @@ export default function App() {
   const [occasion, setOccasion] = useState('daily');
   const [budget, setBudget] = useState('150-300');
   
-  // Note / Vibe Preferences
-  const [prefMode, setPrefMode] = useState('vibe');
-  const [selectedVibeSetting, setSelectedVibeSetting] = useState('cozy-jazz-lounge');
+  // Scent Notes Preferences
   const [rankedNotes, setRankedNotes] = useState(['woods', 'sweet-gourmand']);
 
   const [sillage, setSillage] = useState('pleasant-trail');
@@ -60,7 +68,7 @@ export default function App() {
     'Climate & Location',
     'Purpose & Occasion',
     'Budget Range',
-    'Scent & Vibe Preference',
+    'Favorite Fragrance Notes',
     'Presence & Trail'
   ];
 
@@ -144,8 +152,6 @@ export default function App() {
     climate,
     occasion,
     budget,
-    prefMode,
-    selectedVibeSetting,
     rankedNotes,
     sillage
   };
@@ -222,7 +228,7 @@ export default function App() {
           <SocialProfileView
             ownedFragrances={ownedFragrances}
             onSelectDetail={(fragrance) => setSelectedDetailFragrance(fragrance)}
-            onOpenChat={() => setIsChatOpen(true)}
+            onOpenChat={handleOpenChat}
           />
         )}
 
@@ -265,10 +271,6 @@ export default function App() {
 
               {currentStep === 4 && (
                 <StepNotes
-                  prefMode={prefMode}
-                  setPrefMode={setPrefMode}
-                  selectedVibeSetting={selectedVibeSetting}
-                  setSelectedVibeSetting={setSelectedVibeSetting}
                   rankedNotes={rankedNotes}
                   setRankedNotes={setRankedNotes}
                   onNext={handleNextStep}
@@ -349,7 +351,8 @@ export default function App() {
       {/* Friends Chat & Fragrance Sharing Drawer */}
       <FriendsChatDrawer
         isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
+        friendId={activeChatFriendId}
+        onClose={handleCloseChat}
         onSelectDetail={(fragrance) => setSelectedDetailFragrance(fragrance)}
       />
 

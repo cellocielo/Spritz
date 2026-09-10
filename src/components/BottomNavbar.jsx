@@ -19,7 +19,7 @@ export default function BottomNavbar({
       <nav 
         id="floating-navbar"
         aria-label="Primary Navigation"
-        className="pointer-events-auto flex items-center gap-2 sm:gap-2.5 bg-white/95 backdrop-blur-md p-2 rounded-full border border-stone-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.14)] ring-1 ring-black/5"
+        className="pointer-events-auto flex items-center gap-2 sm:gap-2.5 bg-white/95 backdrop-blur-md p-2 rounded-full border border-stone-200/90 shadow-[0_12px_40px_rgba(255,85,0,0.08),0_4px_12px_rgba(0,0,0,0.06)] ring-1 ring-orange-500/10"
       >
         {/* Tab 1: My Shelf */}
         <button
@@ -29,8 +29,8 @@ export default function BottomNavbar({
           title="My Shelf"
           className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full transition-all flex items-center justify-center cursor-pointer ${
             isShelfActive
-              ? 'bg-stone-900 text-white shadow-sm scale-105'
-              : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100 active:scale-95'
+              ? 'bg-gradient-to-tr from-amber-600 via-orange-500 to-[#ff5500] text-white shadow-md shadow-orange-500/25 scale-105'
+              : 'text-stone-500 hover:text-orange-600 hover:bg-orange-50/60 active:scale-95'
           }`}
         >
           <Layers className="w-5 h-5" />
@@ -44,8 +44,8 @@ export default function BottomNavbar({
           title="Olfactory Map"
           className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full transition-all flex items-center justify-center cursor-pointer ${
             isMapActive
-              ? 'bg-stone-900 text-white shadow-sm scale-105'
-              : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100 active:scale-95'
+              ? 'bg-gradient-to-tr from-amber-600 via-orange-500 to-[#ff5500] text-white shadow-md shadow-orange-500/25 scale-105'
+              : 'text-stone-500 hover:text-orange-600 hover:bg-orange-50/60 active:scale-95'
           }`}
         >
           <Map className="w-5 h-5" />
@@ -59,8 +59,8 @@ export default function BottomNavbar({
           title="Add Fragrance"
           className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full transition-all flex items-center justify-center cursor-pointer ${
             isAddActive
-              ? 'bg-stone-900 text-white shadow-sm scale-105'
-              : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100 active:scale-95'
+              ? 'bg-gradient-to-tr from-amber-600 via-orange-500 to-[#ff5500] text-white shadow-md shadow-orange-500/25 scale-105'
+              : 'text-stone-500 hover:text-orange-600 hover:bg-orange-50/60 active:scale-95'
           }`}
         >
           <PlusCircle className="w-5 h-5" />
@@ -74,8 +74,8 @@ export default function BottomNavbar({
           title="Collector Friends"
           className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full transition-all flex items-center justify-center cursor-pointer ${
             isFriendsActive
-              ? 'bg-stone-900 text-white shadow-sm scale-105'
-              : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100 active:scale-95'
+              ? 'bg-gradient-to-tr from-amber-600 via-orange-500 to-[#ff5500] text-white shadow-md shadow-orange-500/25 scale-105'
+              : 'text-stone-500 hover:text-orange-600 hover:bg-orange-50/60 active:scale-95'
           }`}
         >
           <Users className="w-5 h-5" />

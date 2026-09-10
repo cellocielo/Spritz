@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 105' fill='none'>
+  <g stroke='#ff5500' stroke-width='6.6' stroke-linecap='round' stroke-linejoin='round'>
+    <!-- 1. Spray Mist Trails (Pointing Up-Right & Down-Right) -->
+    <path d='M 65 14.5 C 69 13 72.5 11.5 76 9.5' />
+    <path d='M 65 19 C 69 21.5 72.5 24 76 26' />
+
+    <!-- 2. Four Mist Droplets -->
+    <circle cx='81.5' cy='8.5' r='3.3' fill='#ff5500' stroke='none' />
+    <circle cx='75.5' cy='17.5' r='3.3' fill='#ff5500' stroke='none' />
+    <circle cx='84.5' cy='17.5' r='3.3' fill='#ff5500' stroke='none' />
+    <circle cx='81.5' cy='26.5' r='3.3' fill='#ff5500' stroke='none' />
+
+    <!-- 3. Atomizer Pump Cap with Nozzle Notch on Right -->
+    <path d='M 47 24 V 13 H 55 C 57.5 13 58 14 58 15.5 V 17 H 54.5 V 20.5 H 58 V 24' />
+
+    <!-- 4. Central Dip Tube Straw -->
+    <path d='M 50.5 24 C 49.5 38 47.5 52 44.5 65' />
+
+    <!-- 5. Right Shoulder Line -->
+    <path d='M 58 24 C 64 25.5 72 30 72 40' />
+
+    <!-- 6. Inner Upper Loop of the S Curve -->
+    <path d='M 47 24 C 39 25 36 32 36 38 C 36 43 40 47 47 49 L 66 56 C 71 58 74 62 74 69' />
+
+    <!-- 7. Continuous Outer S Contour -->
+    <path d='M 47 13.5 C 38 9.5 25 15 25 28 C 25 39 31 47 47 52 L 67 58 C 77 62 84 69 84 78 C 84 88 72 94 53 94 C 35 94 22 86 22 72 C 22 63 24 55 25 47' />
+
+    <!-- 8. Liquid Reservoir in Bottle Base -->
+    <path d='M 27 65 C 35 66.5 53 69 72 70.5 C 69 79.5 62 84.5 53 84.5 C 43 84.5 33 79 27 65 Z' />
+  </g>
+</svg>

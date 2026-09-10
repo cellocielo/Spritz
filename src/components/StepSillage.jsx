@@ -1,5 +1,5 @@
 import React from 'react';
-import { VolumeX, Volume1, Volume2, Sparkles, Wand2 } from 'lucide-react';
+import { VolumeX, Volume1, Volume2, ArrowRight } from 'lucide-react';
 
 export default function StepSillage({ sillage, setSillage, onSubmit, onPrev, isGenerating }) {
   const sillageOptions = [
@@ -59,9 +59,8 @@ export default function StepSillage({ sillage, setSillage, onSubmit, onPrev, isG
                 </div>
                 <div className="flex-1 space-y-0.5">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-serif text-base font-bold flex items-center gap-2">
+                    <h3 className="font-serif text-base font-bold">
                       {opt.title}
-                      {isSelected && <Sparkles className="w-3.5 h-3.5 text-white fill-white" />}
                     </h3>
                     <span className={`text-[10px] uppercase font-sans tracking-wider px-2 py-0.5 rounded-full border font-bold ${isSelected ? 'bg-stone-800 text-stone-200 border-stone-700' : 'bg-white text-stone-700 border-stone-300'}`}>
                       {opt.badge}
@@ -97,8 +96,8 @@ export default function StepSillage({ sillage, setSillage, onSubmit, onPrev, isG
             </>
           ) : (
             <>
-              <Wand2 className="w-4 h-4 text-white" />
-              <span>Generate Scent Match →</span>
+              <span>Generate Scent Match</span>
+              <ArrowRight className="w-4 h-4 text-white" />
             </>
           )}
         </button>
