@@ -88,13 +88,13 @@ export default function HomeView({
                 onClick={() => setSelectedOccasion(occ.id)}
                 className={`p-2.5 rounded-2xl cursor-pointer border text-left transition-all ${
                   isSelected
-                    ? 'bg-[#1c1917] text-white border-orange-500/80 shadow-xs ring-1 ring-orange-500/30'
-                    : 'bg-white text-[#1c1917] border-stone-200 hover:border-orange-300/70 hover:bg-orange-50/20'
+                    ? 'bg-stone-800 text-white border-stone-700 shadow-xs'
+                    : 'bg-white text-[#1c1917] border-stone-200 hover:border-stone-400 hover:bg-stone-50'
                 }`}
               >
                 <span className="text-lg block mb-0.5">{occ.icon}</span>
                 <h4 className="font-serif font-bold text-xs line-clamp-1">{occ.title}</h4>
-                <p className={`text-[10px] line-clamp-1 ${isSelected ? 'text-orange-200' : 'text-stone-500'}`}>
+                <p className={`text-[10px] line-clamp-1 ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
                   {occ.subtitle}
                 </p>
               </div>

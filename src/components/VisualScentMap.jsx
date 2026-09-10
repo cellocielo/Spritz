@@ -352,22 +352,9 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
           {/* 1. DUAL-POLYGON RADAR MAP SECTION (Centered with Octagonal Mesh) */}
           <div className="flex flex-col items-center justify-center relative pt-1 pb-2">
             
-            {/* Status & Quick Action Bar (only renders when bottle is selected to minimize empty gap) */}
+            {/* Quick Action Bar (only renders when bottle is selected) */}
             {selectedBottleId && (
-              <div className="w-full flex items-center justify-between px-2 mb-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-800 border border-stone-200 flex items-center gap-1.5 shadow-2xs">
-                    <span 
-                      className="w-2 h-2 rounded-full" 
-                      style={{ backgroundColor: overlayBottleData?.accentColor || '#ff5500' }}
-                    ></span>
-                    Overlaying: <span className="font-bold">{overlayBottleData?.bottle.name}</span>
-                  </span>
-                  <span className="text-[11px] text-stone-400 hidden sm:inline">
-                    (Shelf Footprint dimmed in background)
-                  </span>
-                </div>
-
+              <div className="w-full flex items-center justify-end px-2 mb-1">
                 <button
                   onClick={() => {
                     setSelectedBottleId(null);
@@ -593,7 +580,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                           onClick={() => setActiveCategoryHighlight(isHighlighted ? null : accord.cat.id)}
                           className={`p-2 rounded-xl border transition-all cursor-pointer flex flex-col justify-between gap-1.5 ${
                             isHighlighted 
-                              ? 'bg-stone-950 text-white border-orange-500 ring-1 ring-orange-500 shadow-xs' 
+                              ? 'bg-stone-800 text-white border-stone-700 shadow-xs' 
                               : 'bg-stone-50/80 border-stone-200/80 hover:bg-stone-100'
                           }`}
                         >
@@ -601,7 +588,7 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                             <span className={`text-xs font-medium truncate ${isHighlighted ? 'text-white font-bold' : 'text-stone-800'}`}>
                               {accord.cat.name}
                             </span>
-                            <span className={`text-[11px] font-mono font-bold ${isHighlighted ? 'text-orange-400' : 'text-stone-600'}`}>
+                            <span className={`text-[11px] font-mono font-bold ${isHighlighted ? 'text-[#ff5500]' : 'text-stone-600'}`}>
                               {accord.percent}%
                             </span>
                           </div>
@@ -621,15 +608,6 @@ export default function VisualScentMap({ ownedFragranceNames = [], onSelectDetai
                     })}
                   </div>
                 </div>
-
-                {/* Vibe Quote */}
-                {overlayBottleData.bottle.vibeCheck && (
-                  <div className="bg-stone-50/90 p-2.5 rounded-xl border border-stone-100">
-                    <p className="text-xs text-stone-600 leading-relaxed">
-                      "{overlayBottleData.bottle.vibeCheck}"
-                    </p>
-                  </div>
-                )}
               </div>
             )}
 

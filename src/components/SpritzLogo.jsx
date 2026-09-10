@@ -33,7 +33,7 @@ export default function SpritzLogo({
   const sizeMap = {
     xs: { img: "h-5 w-auto", text: "text-xs", gap: "gap-1" },
     sm: { img: "h-7 sm:h-8 w-auto", text: "text-base sm:text-lg", gap: "gap-1" },
-    md: { img: "h-8 sm:h-9 w-auto", text: "text-xl sm:text-2xl", gap: "gap-1.5" },
+    md: { img: "h-10 sm:h-11 w-auto", text: "text-xl sm:text-2xl", gap: "gap-1.5" },
     lg: { img: "h-14 sm:h-16 w-auto", text: "text-2xl sm:text-3xl", gap: "gap-2" },
     xl: { img: "h-20 sm:h-24 w-auto", text: "text-3xl sm:text-4xl", gap: "gap-3" },
   };

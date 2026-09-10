@@ -30,7 +30,7 @@ export default function StepNotes({
 
   const getRankBadge = (id) => {
     const idx = rankedNotes.indexOf(id);
-    if (idx === 0) return { label: '1st Dominant', color: 'bg-[#1c1917] text-white font-bold' };
+    if (idx === 0) return { label: '1st Dominant', color: 'bg-[#ff5500] text-white font-bold' };
     if (idx === 1) return { label: '2nd Secondary', color: 'bg-stone-700 text-white font-semibold' };
     if (idx === 2) return { label: '3rd Accent', color: 'bg-stone-300 text-stone-900 font-medium' };
     return null;
@@ -71,8 +71,8 @@ export default function StepNotes({
                 onClick={() => handleToggleRankedNote(item.id)}
                 className={`p-3 rounded-3xl cursor-pointer transition-all border text-left relative overflow-hidden ${
                   isSelected
-                    ? 'bg-[#1c1917] text-white border-orange-500/80 shadow-md ring-1 ring-orange-500/30'
-                    : 'bg-[#f4f0ea] text-[#1c1917] border-stone-200 hover:border-orange-300/80 hover:bg-white'
+                    ? 'bg-stone-800 text-white border-stone-700 shadow-md'
+                    : 'bg-[#f4f0ea] text-[#1c1917] border-stone-200 hover:border-stone-400 hover:bg-white'
                 }`}
               >
                 {rank && (
@@ -80,13 +80,13 @@ export default function StepNotes({
                     {rank.label}
                   </span>
                 )}
-                <div className={`w-7 h-7 rounded-xl flex items-center justify-center mb-1.5 border ${isSelected ? 'bg-stone-800 border-stone-700 text-orange-400' : 'bg-white border-stone-300 text-[#1c1917]'}`}>
-                  <Icon className="w-3.5 h-3.5" />
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center mb-1.5 border ${isSelected ? 'bg-stone-900 border-stone-700 text-[#ff5500]' : 'bg-white border-stone-300 text-[#1c1917]'}`}>
+                  <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#ff5500]' : 'text-[#1c1917]'}`} />
                 </div>
                 <h3 className="text-xs font-bold font-serif">
                   {item.label}
                 </h3>
-                <p className={`text-[10px] leading-tight pt-0.5 ${isSelected ? 'text-orange-200' : 'text-stone-600'}`}>
+                <p className={`text-[10px] leading-tight pt-0.5 ${isSelected ? 'text-stone-300' : 'text-stone-600'}`}>
                   {item.simpleTerm}
                 </p>
               </div>
